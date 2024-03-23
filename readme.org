@@ -5,6 +5,11 @@
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
 
+* 代码仓库
+#+BEGIN_SRC sh
+  git clone https://github.com/Jeanhwea/cis198-rust-course.git
+#+END_SRC
+
 * 课程信息
 1. 开始时间 <2024-03-23 Sat>
 
