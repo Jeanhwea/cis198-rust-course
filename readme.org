@@ -6,6 +6,7 @@
 #+OPTIONS: ^:nil
 
 * 课程信息
+1. 开始时间 <2024-03-23 Sat>
 
 * 参考材料
 1. CIS 198: Rust Programming | [[http://cis198-2016s.github.io/schedule/][Schedule]]
