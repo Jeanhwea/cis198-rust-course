@@ -1,0 +1,9 @@
+#+TITLE: CIS198 Rust 编程语言学习笔记
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-03-23 Sat>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil
+
+* 原始课程链接
+1. CIS 198: Rust Programming | [[http://cis198-2016s.github.io/schedule/][Schedule]]
