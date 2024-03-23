@@ -6,7 +6,7 @@
 #+OPTIONS: ^:nil
 
 * 背景
-1. rust 和 c/c++/Java/Python/golang
+1. rust 和 c/c++/Java/Python/golang 不太一样
 2. rust 学习曲线比较陡峭
 3. rust 有很多颠覆认证的特性：
    - 所有权，生命周期，借用检测
