@@ -1,0 +1,16 @@
+#+TITLE: Lecture 00: 预热
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-03-23 Sat>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil
+
+* Hello World
+#+BEGIN_SRC rust
+  fn main() {
+      println!("Hello World!");
+  }
+#+END_SRC
+
+#+RESULTS:
+: Hello World!
