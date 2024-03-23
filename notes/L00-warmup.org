@@ -6,11 +6,11 @@
 #+OPTIONS: ^:nil
 
 * Hello World
-#+BEGIN_SRC rust
+#+BEGIN_SRC rust :exports both
   fn main() {
-      println!("Hello World!");
+      println!("hello");
   }
 #+END_SRC
 
 #+RESULTS:
-: Hello World!
+: hello
