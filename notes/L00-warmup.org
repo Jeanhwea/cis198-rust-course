@@ -15,8 +15,8 @@
 #+RESULTS:
 : hello world from here
 
-* Variable Binding
-** 不可变
+* 变量绑定
+** 不可变性
 - binding => 绑定
 #+BEGIN_SRC rust :exports both
   let x = 12;
@@ -50,7 +50,7 @@
 : 12
 : abc
 
-* 数组
+* 数组/切片/元组
 ** 数组
 #+BEGIN_SRC rust :exports both
   let aa = [1, 2, 3];
