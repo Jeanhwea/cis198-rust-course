@@ -18,6 +18,8 @@
   git clone https://github.com/Jeanhwea/cis198-rust-course.git
 #+END_SRC
 
+#+RESULTS:
+
 * 参考材料
 1. CIS 198: Rust Programming | [[http://cis198-2016s.github.io/schedule/][Schedule]]
 2. The Rust Programming Language | [[https://doc.rust-lang.org/book/][Book]]
