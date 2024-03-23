@@ -5,5 +5,8 @@
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
 
-* 原始课程链接
+* 课程信息
+
+* 参考材料
 1. CIS 198: Rust Programming | [[http://cis198-2016s.github.io/schedule/][Schedule]]
+2. The Rust Programming Language | [[https://doc.rust-lang.org/book/][Book]]
