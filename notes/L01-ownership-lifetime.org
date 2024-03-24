@@ -146,15 +146,185 @@
 
 ** 可变借用后自动解引用
 #+BEGIN_SRC rust :exports both
-  fn vec_len(v: &Vec<i32>) -> usize {
+  fn vec_len(v: &&Vec<i32>) -> usize {
       // let v1 = *v;
       // v1.len()
       v.len()
   }
 
   let v1 = vec![1, 2, 3, 8, 9];
-  println!("{:?}", vec_len(&v1));
+  println!("{:?}", vec_len(&&&&&&&&&&&&&v1));
 #+END_SRC
 
 #+RESULTS:
 : 5
+
+* 回顾
+** 概念
+1. ownership 所有权
+2. borrow 借用
+3. move 所有权转换
+4. mutable 可变性
+5. dereference 解引用
+6. scope 作用域
+7. iter 迭代器
+   - iter()
+   - iter_mut()
+   - into_iter()
+** 解引用：混淆场景
+#+BEGIN_SRC rust :exports both
+  let mut a = 5;
+  let ref_a = &mut a;
+  ,*ref_a = 4;
+  println!("{}", *ref_a + 4);
+#+END_SRC
+
+#+RESULTS:
+: 8
+** ref 关键字
+#+BEGIN_SRC rust :exports both
+  let mut v = vec![0];
+  {
+      let v1 = &v;
+      let ref v2 = v;
+      println!("{:p}", v1);
+      println!("{:p}", v2);
+  }
+
+  // let v3 = &mut v;
+  let ref mut v3 = v;
+  v3.push(3);
+  println!("{:?}", v3);
+  println!("{:?}", v);
+#+END_SRC
+
+#+RESULTS:
+: 0x7ff7b9c03c00
+: 0x7ff7b9c03c00
+: [0, 3]
+: [0, 3]
+** ref 和 match 语句
+
+#+BEGIN_SRC rust :exports both
+  let mut vectors = (vec![0], vec![1]);
+  match vectors {
+      (v1, ref mut v2) => {
+          (*v1).len();
+          v2.push(2);
+      }
+  }
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC rust :exports both
+  let mut vectors = (vec![0], vec![1]);
+  match vectors {
+      (ref v1, ref mut v2) => {
+          v1.len();
+          v2.push(2);
+      }
+  }
+#+END_SRC
+
+#+RESULTS:
+
+** Copy Types
+1. i32 是可以 Copy Trait， 可以复制
+#+BEGIN_SRC rust :exports both
+  let x:i32 = 23;
+  let y = x; // 并没有发生 move, 而是 copy
+  println!("{}", x);
+#+END_SRC
+
+#+RESULTS:
+: 23
+
+- ~&str~ 实现了 Copy
+- ~String~ 没实现了 Copy
+#+BEGIN_SRC rust :exports both
+  // let x = "1234".to_string();
+  let x = "abc";
+  let y = x; // String=>move, &str=>copy
+  println!("{:?}", x);
+#+END_SRC
+
+#+RESULTS:
+: "abc"
+
+* 借用的规则
+1. You can't keep borrowing something after it stops existing.
+2. 可以有多个 不可变引用 (immutable reference)
+3. 只能有一个 可变引用 (mutable reference)
+* 非法案例
+** 借用+迭代删除
+error[E0502]: cannot borrow `v` as mutable because it is also borrowed as immutable
+#+BEGIN_SRC rust :exports both
+  let mut v = vec![1, 2, 3];
+  for e in &v { // 不可变借用
+      // println!("{}", e);
+      v.pop(); // pop 可变借用
+  }
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargoDEe67e`.
+
+** 悬挂指针
+error[E0597]: `x` does not live long enough
+#+BEGIN_SRC rust :exports both
+  let y: &i32;
+  {
+      let x: i32 = 3;
+      y = &x;
+  }
+  println!("{:?}", y);
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargohZPdfN`.
+
+修改方式
+#+BEGIN_SRC rust :exports both
+  let y: &i32;
+  let x: i32 = 3;
+  y = &x;
+  println!("{:?}", y);
+#+END_SRC
+
+#+RESULTS:
+: 3
+
+* 更多例子
+
+#+BEGIN_SRC rust :exports both
+  let mut vs = vec![0,1,2];
+
+  // Borrow immutably
+  for v in &vs { // Can also write `for v in vs.iter()`
+      println!("I'm borrowing {}.", v);
+  }
+
+  // Borrow mutably
+  for v in &mut vs { // Can also write `for v in vs.iter_mut()`
+  ,*v = *v + 1;
+      println!("I'm mutably borrowing {}.", v);
+  }
+
+  // Take ownership of the whole vector
+  for v in vs { // Can also write `for v in vs.into_iter()`
+      println!("I now own {}! AHAHAHAHA!", v);
+  }
+  // `vs` is no longer valid
+#+END_SRC
+
+#+RESULTS:
+: I'm borrowing 0.
+: I'm borrowing 1.
+: I'm borrowing 2.
+: I'm mutably borrowing 1.
+: I'm mutably borrowing 2.
+: I'm mutably borrowing 3.
+: I now own 1! AHAHAHAHA!
+: I now own 2! AHAHAHAHA!
+: I now own 3! AHAHAHAHA!
