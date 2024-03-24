@@ -16,27 +16,27 @@
    - 函数式+命令式支持
 
 * 课程大纲
-| Lecture | Topic                     |
-|---------+---------------------------|
-| L00     | Course Introduction       |
-| L01     | Ownership & Lifetimes     |
-| L02     | Structured Data           |
-| L03     | Generics & Traits         |
-| L04     | Closures                  |
-| L05     | Standard Library          |
-| L06     | std_ Pointer Types        |
-| L07     | Misc_ Syntax, Crates, std |
-| L08     | IO                        |
-| L09     | Networking & Web          |
-| L10     | Concurrency I             |
-| L11     | Concurrency II            |
-| L12     | Unsafe Rust               |
-| L13     | Macros!                   |
-| L14     | Community & Contributing  |
-| L15     | Nightly Rust              |
-| L16     | Subtyping & Variance      |
-| L17     | Borrowing & Owning        |
-| L18     | Cross-Compilation         |
+| Lecture | Topic                     | Date             |
+|---------+---------------------------+------------------|
+| L00     | Course Introduction       | <2024-03-23 Sat> |
+| L01     | Ownership & Lifetimes     |                  |
+| L02     | Structured Data           |                  |
+| L03     | Generics & Traits         |                  |
+| L04     | Closures                  |                  |
+| L05     | Standard Library          |                  |
+| L06     | std_ Pointer Types        |                  |
+| L07     | Misc_ Syntax, Crates, std |                  |
+| L08     | IO                        |                  |
+| L09     | Networking & Web          |                  |
+| L10     | Concurrency I             |                  |
+| L11     | Concurrency II            |                  |
+| L12     | Unsafe Rust               |                  |
+| L13     | Macros!                   |                  |
+| L14     | Community & Contributing  |                  |
+| L15     | Nightly Rust              |                  |
+| L16     | Subtyping & Variance      |                  |
+| L17     | Borrowing & Owning        |                  |
+| L18     | Cross-Compilation         |                  |
 
 * 笔记索引
 - L00 [[file:notes/l00-warmup.org][预热]]
