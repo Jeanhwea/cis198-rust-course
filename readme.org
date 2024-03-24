@@ -5,6 +5,8 @@
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
 
+[[file:images/rust01.jpeg]]
+
 * 背景
 1. rust 和 c/c++/Java/Python/golang 不太一样
 2. rust 学习曲线比较陡峭
@@ -18,5 +20,6 @@
 
 * 参考材料
 1. CIS 198: Rust Programming | [[http://cis198-2016s.github.io/schedule/][Schedule]]
-2. The Rust Programming Language | [[https://doc.rust-lang.org/book/][Book]]
-3. 代码仓库 [[https://github.com/Jeanhwea/cis198-rust-course.git][github]]
+2. [[https://www.cis1905.org/schedule.html][cis1905]]
+3. The Rust Programming Language | [[https://doc.rust-lang.org/book/][Book]]
+4. 代码仓库 [[https://github.com/Jeanhwea/cis198-rust-course.git][github]]
