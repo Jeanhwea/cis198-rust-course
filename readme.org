@@ -14,8 +14,11 @@
    - 所有权，生命周期，借用检测
    - cargo 工具
    - 函数式+命令式支持
+4. 视频讲解见 [[https://space.bilibili.com/1969478249/channel/collectiondetail][B站]]
 
 * 课程大纲
+
+
 | Timeline         | Lecture | Topic                     | Note             |
 |------------------+---------+---------------------------+------------------|
 | <2024-03-23 Sat> | L00     | Course Introduction       | [[file:notes/l00-warmup.org][预热]]             |
