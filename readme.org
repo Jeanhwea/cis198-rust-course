@@ -16,7 +16,8 @@
    - 函数式+命令式支持
 
 * 笔记索引
-1. [[file:notes/L00-warmup.org][预热]]
+- lecture00 [[file:notes/l00-warmup.org][预热]]
+- lecture01 [[file:notes/L01-ownership-lifetime.org][所有权和生命周期]]
 
 * 参考材料
 1. CIS 198: Rust Programming | [[http://cis198-2016s.github.io/schedule/][Schedule]]
