@@ -81,7 +81,7 @@
 #+RESULTS:
 : x = -5 is less than zero
 
-* 数组/切片/元组
+* 类型
 ** 数组
 #+BEGIN_SRC rust :exports both
   let aa = [1, 2, 3];
