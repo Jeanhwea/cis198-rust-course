@@ -60,6 +60,27 @@
 : 12
 : abc
 
+* 表达式
+- ~()~ 表示 unit 类型， unit 类型只包含一个值，即  ~()~
+#+BEGIN_SRC rust :exports both
+  fn foo() -> i32 { 5 }
+  fn bar() -> () { () }
+  fn baz() -> () { 5; }
+  fn qux()       { 5; }
+#+END_SRC
+
+#+RESULTS:
+
+- if 表达式列举
+#+BEGIN_SRC rust :exports both
+  let x = -5;
+  let y = if x > 0 { "greater" } else { "less" };
+  println!("x = {} is {} than zero", x, y);
+#+END_SRC
+
+#+RESULTS:
+: x = -5 is less than zero
+
 * 数组/切片/元组
 ** 数组
 #+BEGIN_SRC rust :exports both
