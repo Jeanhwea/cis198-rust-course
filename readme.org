@@ -47,3 +47,15 @@
 2. CIS1905: 2024 Spring | [[https://www.cis1905.org/schedule.html][cis1905]]
 3. The Rust Programming Language | [[https://doc.rust-lang.org/book/][Book]]
 4. 代码仓库 [[https://github.com/Jeanhwea/cis198-rust-course.git][github]]
+
+* 捐赠列表
+#+BEGIN_QUOTE
+如果觉得讲解得好，请喝一杯咖啡也是极好的
+好心的捐赠大佬可以备注一下： *rust+昵称* 下面会记录一下，感谢！
+#+END_QUOTE
+
+| date | name |
+|------+------|
+|      |      |
+
+[[file:images/pay.jpg]]
