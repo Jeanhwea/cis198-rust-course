@@ -71,7 +71,7 @@
 
 #+RESULTS:
 
-- if 表达式列举
+- if 表达式举例
 #+BEGIN_SRC rust :exports both
   let x = -5;
   let y = if x > 0 { "greater" } else { "less" };
