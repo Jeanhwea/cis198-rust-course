@@ -18,29 +18,29 @@
 * 课程大纲
 | Lecture | Topic                     |
 |---------+---------------------------|
-|      00 | Course Introduction       |
-|      01 | Ownership & Lifetimes     |
-|      02 | Structured Data           |
-|      03 | Generics & Traits         |
-|      04 | Closures                  |
-|      05 | Standard Library          |
-|      06 | std_ Pointer Types        |
-|      07 | Misc_ Syntax, Crates, std |
-|      08 | IO                        |
-|      09 | Networking & Web          |
-|      10 | Concurrency I             |
-|      11 | Concurrency II            |
-|      12 | Unsafe Rust               |
-|      13 | Macros!                   |
-|      14 | Community & Contributing  |
-|      15 | Nightly Rust              |
-|      16 | Subtyping & Variance      |
-|      17 | Borrowing & Owning        |
-|      18 | Cross-Compilation         |
+| L00     | Course Introduction       |
+| L01     | Ownership & Lifetimes     |
+| L02     | Structured Data           |
+| L03     | Generics & Traits         |
+| L04     | Closures                  |
+| L05     | Standard Library          |
+| L06     | std_ Pointer Types        |
+| L07     | Misc_ Syntax, Crates, std |
+| L08     | IO                        |
+| L09     | Networking & Web          |
+| L10     | Concurrency I             |
+| L11     | Concurrency II            |
+| L12     | Unsafe Rust               |
+| L13     | Macros!                   |
+| L14     | Community & Contributing  |
+| L15     | Nightly Rust              |
+| L16     | Subtyping & Variance      |
+| L17     | Borrowing & Owning        |
+| L18     | Cross-Compilation         |
 
 * 笔记索引
-- lecture00 [[file:notes/l00-warmup.org][预热]]
-- lecture01 [[file:notes/L01-ownership-lifetime.org][所有权和生命周期]]
+- L00 [[file:notes/l00-warmup.org][预热]]
+- L01 [[file:notes/L01-ownership-lifetime.org][所有权和生命周期]]
 
 * 参考材料
 1. CIS 198: Rust Programming | [[http://cis198-2016s.github.io/schedule/][Schedule]]
