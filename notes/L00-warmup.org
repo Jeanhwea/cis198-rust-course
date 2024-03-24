@@ -406,3 +406,29 @@ match 匹配元组，带条件，复杂模式匹配
 
 #+RESULTS:
 : On guard!
+
+* 附录：环境配置
+** lsp 配置
+#+BEGIN_SRC sh
+  rustup component add rust-analyzer
+#+END_SRC
+
+** cargo 项目管理相关
+创建项目
+#+BEGIN_SRC sh
+  cargo new myapp
+  cargo new --lib mylib
+#+END_SRC
+
+添加包
+#+BEGIN_SRC sh
+  cargo add config
+  cargo add clap --features derive
+#+END_SRC
+
+编译运行
+#+BEGIN_SRC sh
+  cargo build
+  cargo build --release
+  cargo run -- -h
+#+END_SRC
