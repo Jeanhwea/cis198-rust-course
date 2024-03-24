@@ -81,8 +81,8 @@
 #+RESULTS:
 : x = -5 is less than zero
 
-* 类型
-** 数组
+* 类型 type
+** 数组 array
 #+BEGIN_SRC rust :exports both
   let aa = [1, 2, 3];
   println!("{:?}", aa);
@@ -106,11 +106,11 @@
 : [1, 2, 3, 4, 5]
 : [2, 3]
 
-** 字符串
+** 字符串 string
 1. ~String~ 堆分配
 2. ~&str~ 静态
 
-** tuple 元组
+** 元组 tuple
 #+BEGIN_SRC rust :exports both
   let a = (1, 2);
   println!("{}", a.1);
