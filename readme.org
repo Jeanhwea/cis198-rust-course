@@ -19,7 +19,7 @@
 | Lecture | Topic                     | Date             |
 |---------+---------------------------+------------------|
 | L00     | Course Introduction       | <2024-03-23 Sat> |
-| L01     | Ownership & Lifetimes     |                  |
+| L01     | Ownership & Lifetimes     | <2024-03-24 Sun> |
 | L02     | Structured Data           |                  |
 | L03     | Generics & Traits         |                  |
 | L04     | Closures                  |                  |
