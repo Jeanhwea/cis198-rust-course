@@ -20,6 +20,6 @@
 
 * 参考材料
 1. CIS 198: Rust Programming | [[http://cis198-2016s.github.io/schedule/][Schedule]]
-2. [[https://www.cis1905.org/schedule.html][cis1905]]
+2. CIS1905: 2024 Spring | [[https://www.cis1905.org/schedule.html][cis1905]]
 3. The Rust Programming Language | [[https://doc.rust-lang.org/book/][Book]]
 4. 代码仓库 [[https://github.com/Jeanhwea/cis198-rust-course.git][github]]
