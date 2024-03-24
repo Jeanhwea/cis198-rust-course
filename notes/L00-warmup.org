@@ -26,6 +26,16 @@
 #+RESULTS:
 : error: Could not compile `cargo2AKCJn`.
 
+添加 ~mut~ 关键字来修改变量的可变性
+#+BEGIN_SRC rust :exports both
+  let mut x = 12;
+  x += 1;
+  println!("{}", x);
+#+END_SRC
+
+#+RESULTS:
+: 13
+
 ** 可以重新绑定
 #+BEGIN_SRC rust :exports both
   let x = 12;
