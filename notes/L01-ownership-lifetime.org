@@ -298,7 +298,8 @@ error[E0597]: `x` does not live long enough
 * 更多例子
 [[file:../a2_ownership_lifetime/src/main.rs]]
 
-* 总结：你需要掌握的心智模型（Mental Models）
+* 总结：
+** 心智模型（Mental Models）
 1. ownership
 2. transfer ownership (by varible binding)
    1. move (too expensive)
@@ -315,8 +316,8 @@ error[E0597]: `x` does not live long enough
         2. ambiguous? => need your choose
      2) reuse? (exact one mutable_borrow)
 
-* 其他语言
-** java.util.ConcurrentModificationException
+** 其他语言对比
+*** java.util.ConcurrentModificationException
 #+BEGIN_SRC java :imports java.util.*;
   List<Integer> vec = new ArrayList<>();
   for (int i = 0; i < 100; i++) { vec.add(i); }
@@ -333,7 +334,7 @@ error[E0597]: `x` does not live long enough
 #+RESULTS:
 : OK
 
-** C++ 段错误
+*** C++ 段错误
 #+BEGIN_SRC C++ :includes '(<iostream> <vector>) :results output
   std::vector<int> v = {1, 2, 3, 4, 5};
 
