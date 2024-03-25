@@ -411,7 +411,7 @@ match 匹配元组，带条件，复杂模式匹配
 ** rustc 编译器
 1. 一次只能有一个输入文件 ~main.rs~ / ~lib.rs~
 2. 大部分不直接使用 rustc
-** crago
+** cargo
 1. cargo new
 2. cargo build
 3. cargo run
