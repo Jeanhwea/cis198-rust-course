@@ -302,7 +302,7 @@ error[E0597]: `x` does not live long enough
 1. ownership
 2. transfer ownership (by assign)
    1. move
-      - cannot change original object
+      - NO modifing the object
    2. Copy types
       - duplicated data on stack
    3. Clone, clone must copy
