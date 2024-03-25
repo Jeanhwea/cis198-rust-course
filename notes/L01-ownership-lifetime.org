@@ -315,7 +315,6 @@ error[E0597]: `x` does not live long enough
         2. ambiguous? => need your choose
      2) reuse? (exact one mutable_borrow)
 
-
 * 其他语言
 ** java.util.ConcurrentModificationException
 #+BEGIN_SRC java :imports java.util.*;
@@ -327,6 +326,26 @@ error[E0597]: `x` does not live long enough
           list.remove(obj);
       }
   }
+#+END_SRC
+
+** C++ 段错误
+#+BEGIN_SRC C++ :includes '(<iostream> <vector>) :results output
+  std::vector<int> v = {1, 2, 3, 4, 5};
+
+  std::vector<int>::iterator it;
+
+  // for(it = v.begin(); it != v.end(); ++it) {
+  //         std::cout << *it << " ";
+  // }
+  // std::cout << std::endl;
+
+  // std::vector<int>::iterator it;
+  // for(it = v.begin(); it != v.end(); ++it) {
+  //         if (*it < 3) continue;
+  //         v.erase(it);
+  // }
+
+  // std::cout << v.size() << std::endl;
 #+END_SRC
 
 #+RESULTS:
