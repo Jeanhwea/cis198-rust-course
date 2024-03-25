@@ -305,7 +305,7 @@ error[E0597]: `x` does not live long enough
        - cannot change object
      - Copy types
        - duplicated data on stack
-     - Clone
+     - Clone, clone must copy
        - duplicated data on heap
    - borrow (by reference)
      + immutable
