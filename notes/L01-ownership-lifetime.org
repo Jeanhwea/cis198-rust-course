@@ -300,17 +300,17 @@ error[E0597]: `x` does not live long enough
 
 * 总结：你需要掌握的心智模型（Mental Models）
 1. ownership
-   - transfer ownership
-     - move
-       - cannot change object
-     - Copy types
-       - duplicated data on stack
-     - Clone, clone must copy
-       - duplicated data on heap
-   - borrow (by reference)
-     + immutable
-     + mutable
-       - auto-deference
-         - SAFETY, prevent deference mutable_borrow
-         - ambiguous? => need your choose
-       - reuse? (exact one mutable_borrow)
+2. transfer ownership
+   1. move
+      - cannot change object
+   2. Copy types
+      - duplicated data on stack
+   3. Clone, clone must copy
+      - duplicated data on heap
+3. no transfer, borrow (by reference)
+   - immutable
+   - mutable
+     1) auto-deference
+        1. SAFETY, prevent deference mutable_borrow
+        2. ambiguous? => need your choose
+     2) reuse? (exact one mutable_borrow)
