@@ -314,3 +314,19 @@ error[E0597]: `x` does not live long enough
         1. SAFETY, prevent deference mutable_borrow
         2. ambiguous? => need your choose
      2) reuse? (exact one mutable_borrow)
+
+
+* 其他语言
+** java.util.ConcurrentModificationException
+#+BEGIN_SRC java :imports java.util.*;
+  ArrayList<Integer> list = new ArrayList<>();
+  for (int i = 0; i < 100; i++) {list.add(i);}
+
+  for (Integer obj : list) {
+      if (obj < 10) {
+          list.remove(obj);
+      }
+  }
+#+END_SRC
+
+#+RESULTS:
