@@ -301,10 +301,12 @@ error[E0597]: `x` does not live long enough
 * 总结：你需要掌握的心智模型（Mental Models）
 1. ownership
    - transfer ownership
-     + move
+     - move
        - cannot change object
-     + Copy types
+     - Copy types
        - duplicated data on stack
+     - Clone
+       - duplicated data on heap
    - borrow (by reference)
      + immutable
      + mutable
