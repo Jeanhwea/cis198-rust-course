@@ -65,6 +65,7 @@
   let v1 = vec![1, 2, 3];
 
   // let v2 = v1;
+  // let v2 = v1.clone();
   let v2 = &v1; // 发生了借用
   let v3 = &v1; // 发生了借用
 
@@ -316,23 +317,36 @@ error[E0597]: `x` does not live long enough
         2. ambiguous? => need your choose
      2) reuse? (exact one mutable_borrow)
 
+
+ 1. ownership
+ 2. 所有权转移 by 变量绑定
+    - move
+    - copy
+    - clone
+ 3. 所有权不转移（借用）by 引用
+    - immutable 借用多次
+    - mutable
+      1) auto-deference 自动解引用
+         - SAFETY, prevent deference mutable_borrow
+         - ambiguous? => need your choose
+      2) exact one 可变借用
+
 ** 其他语言对比
 *** java.util.ConcurrentModificationException
 #+BEGIN_SRC java :imports java.util.*;
   List<Integer> vec = new ArrayList<>();
   for (int i = 0; i < 100; i++) { vec.add(i); }
 
-  // for (Integer obj : vec) {
-  //     if (obj < 10) {
-  //         vec.remove(obj);
-  //     }
-  // }
+  for (Integer obj : vec) {
+      if (obj < 10) {
+          vec.remove(obj);
+      }
+  }
 
   System.out.println("OK");
 #+END_SRC
 
 #+RESULTS:
-: OK
 
 *** C++ 段错误
 #+BEGIN_SRC C++ :includes '(<iostream> <vector>) :results output
@@ -345,13 +359,12 @@ error[E0597]: `x` does not live long enough
   // }
   // std::cout << std::endl;
 
-  // std::vector<int>::iterator it;
-  // for(it = v.begin(); it != v.end(); ++it) {
-  //         if (*it < 3) continue;
-  //         v.erase(it);
-  // }
+  for(it = v.begin(); it != v.end(); ++it) {
+          if (*it < 3) continue;
+          v.erase(it);
+  }
 
-  // std::cout << v.size() << std::endl;
+  std::cout << "end" << std::endl;
 #+END_SRC
 
 #+RESULTS:
