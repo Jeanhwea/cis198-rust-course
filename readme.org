@@ -18,7 +18,6 @@
 
 * 课程大纲
 
-
 | Timeline         | Lecture | Topic                     | Note             |
 |------------------+---------+---------------------------+------------------|
 | <2024-03-23 Sat> | L00     | Course Introduction       | [[file:notes/l00-warmup.org][预热]]             |
@@ -40,7 +39,6 @@
 |                  | L16     | Subtyping & Variance      |                  |
 |                  | L17     | Borrowing & Owning        |                  |
 |                  | L18     | Cross-Compilation         |                  |
-
 
 * 参考材料
 1. CIS198: Rust Programming | 2016 Spring | [[http://cis198-2016s.github.io/schedule/][Schedule]]
