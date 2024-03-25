@@ -318,15 +318,20 @@ error[E0597]: `x` does not live long enough
 * 其他语言
 ** java.util.ConcurrentModificationException
 #+BEGIN_SRC java :imports java.util.*;
-  ArrayList<Integer> list = new ArrayList<>();
-  for (int i = 0; i < 100; i++) {list.add(i);}
+  List<Integer> vec = new ArrayList<>();
+  for (int i = 0; i < 100; i++) { vec.add(i); }
 
-  for (Integer obj : list) {
-      if (obj < 10) {
-          list.remove(obj);
-      }
-  }
+  // for (Integer obj : vec) {
+  //     if (obj < 10) {
+  //         vec.remove(obj);
+  //     }
+  // }
+
+  System.out.println("OK");
 #+END_SRC
+
+#+RESULTS:
+: OK
 
 ** C++ 段错误
 #+BEGIN_SRC C++ :includes '(<iostream> <vector>) :results output
