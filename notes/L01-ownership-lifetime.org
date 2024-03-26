@@ -79,7 +79,7 @@
 : [1, 2, 3]
 : [1, 2, 3]
 
-** 借用后再 move 会报错
+** 借用后再 move 不会报错，但是再使用就会报错
 #+BEGIN_SRC rust :exports both
   let v1 = vec![1, 2, 3];
 
