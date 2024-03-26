@@ -215,3 +215,127 @@
 
 #+RESULTS:
 : Unit
+
+* 枚举
+** 定义枚举
+#+BEGIN_SRC rust :exports both
+  enum Resultish {
+      Ok,
+      Warning{ code: i32, message: String},
+      Err(String)
+  }
+#+END_SRC
+
+#+RESULTS:
+
+** 枚举实例化
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  enum Resultish {
+      Ok,
+      Warning{ code: i32, message: String},
+      Err(String)
+  }
+
+  let ok = Resultish::Ok;
+  let err1 = Resultish::Err("bad request".to_string());
+  println!("{:?}", ok);
+  println!("{:?}", err1);
+#+END_SRC
+
+#+RESULTS:
+: Ok
+: Err("bad request")
+
+** 递归的枚举
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  enum List {
+      Nil,
+      Cons(i32, Box<List>)
+  }
+
+  let empty = List::Nil;
+  println!("{:?}", empty);
+
+  let head = List::Cons(1, Box::new(empty));
+  println!("{:?}", head);
+#+END_SRC
+
+#+RESULTS:
+: Nil
+: Cons(1, Nil)
+
+* 方法
+** 方法的定义
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  struct Point {
+      x: i32,
+      y: i32,
+  }
+
+  impl Point {
+      // 方法
+      pub fn distance(&self, other: Point) -> f32 {
+          let (dx, dy) = (self.x - other.x, self.y - other.y);
+          ((dx*dx + dy*dy) as f32).sqrt()
+      }
+  }
+
+  fn main() {
+      let p0 = Point{x:0, y:0};
+      let p1 = Point{x:3, y:4};
+      let d = p0.distance(p1);
+      println!("{:?}", d);
+  }
+#+END_SRC
+
+#+RESULTS:
+: 5.0
+
+** 方法中 self 的关系
+- ~&self~ 借用 （不可变）
+- ~&mut self~ 可变借用
+- ~self~ 所有权转移
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  struct Point {
+      x: i32,
+      y: i32,
+  }
+
+  impl Point {
+      // 方法：求距离
+      pub fn distance(&self, other: Point) -> f32 {
+          let (dx, dy) = (self.x - other.x, self.y - other.y);
+          ((dx*dx + dy*dy) as f32).sqrt()
+      }
+
+      // 平移
+      pub fn translate(&mut self, dx: i32, dy: i32) {
+          self.x += dx;
+          self.y += dy;
+      }
+
+
+      // 按 y 轴对称 (1, 2) => (-1, 2)
+      pub fn mirror_y(self) -> Point {
+          Point {x: -self.x, y: self.y }
+      }
+  }
+
+  fn main() {
+      let p0 = Point{x:0, y:0};
+      let mut p1 = Point{x:3, y:4};
+      p1.translate(3, 1);
+      println!("{:?}", p1);
+      let p2 = p1.mirror_y();
+      println!("{:?}", p2);
+      // println!("{:?}", p1);
+  }
+#+END_SRC
+
+#+RESULTS:
+: Point { x: 6, y: 5 }
+: Point { x: -6, y: 5 }
