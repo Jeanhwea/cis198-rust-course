@@ -4,3 +4,214 @@
 #+DATE: <2024-03-27 Wed>
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
+
+* 结构体
+** 定义
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  struct Point {
+      x: i32,
+      y: i32,
+  }
+
+  let mut origin = Point{x: 0, y: 0};
+  println!("{:?}", origin);
+
+  origin.x += 1;
+  origin.y -= 1;
+  println!("{:?}", origin);
+#+END_SRC
+
+#+RESULTS:
+: Point { x: 0, y: 0 }
+: Point { x: 1, y: -1 }
+
+** 访问构体字段
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  struct Point {
+      x: i32,
+      mut y: i32,  // 非法的
+  }
+
+  let mut p = Point{x: 0, y: 0};
+  println!("{:?}", p);
+
+  p.x += 1;
+  p.y -= 1;
+  println!("{:?}", p);
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargoJ5EtMu`.
+
+** mut 不是结构体属性
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  struct Point {
+      x: i32,
+      mut y: i32,  // 非法的
+  }
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargoJ5EtMu`.
+
+#+BEGIN_EXAMPLE
+  error: expected identifier, found keyword `mut`
+   --> src/main.rs:6:5
+    |
+  4 | struct Point {
+    |        ----- while parsing this struct
+  5 |     x: i32,
+  6 |     mut y: i32,  // 非法的
+    |     ^^^ expected identifier, found keyword
+
+  error: could not compile `cargoJ5EtMu` (bin "cargoJ5EtMu") due to 1 previous error
+#+END_EXAMPLE
+** 结构体的命名空间
+#+BEGIN_SRC rust :exports both
+  mod foo {
+      #[derive(Debug)]
+      pub struct Point {
+          x: i32,
+          y: i32,
+      }
+
+      pub fn new(x: i32, y: i32) -> Point {
+          Point{x: x, y: y}
+      }
+  }
+
+  fn main() {
+      let p1 = foo::new(1, 2);
+      println!("{:?}", p1);
+
+      match p1 {
+          foo::Point{x, y} => println!("{x}, {y}"),
+      }
+  }
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargoVwohr3`.
+
+** 结构体的 match
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  pub struct Point {
+      x: i32,
+      y: i32,
+  }
+
+  fn main() {
+      let p1 = Point{x:1, y:2};
+      match p1 {
+          Point{x, y} => println!("aa: {x}, {y}"),
+      }
+
+      match p1 {
+          Point{x: x1, y: y1} => println!("bb: {x1}, {y1}"),
+      }
+
+      match p1 {
+          Point{y, ..} => println!("cc: y={y}"),
+      }
+  }
+#+END_SRC
+
+#+RESULTS:
+: aa: 1, 2
+: bb: 1, 2
+: cc: y=2
+
+** 结构体的更新
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  pub struct Foo {
+      a: i32,
+      b: i32,
+      c: i32,
+      d: i32,
+      e: i32,
+  }
+
+  fn main() {
+      let p1 = Foo{a:1, b:1, c:2, d:2, e:2};
+      println!("{:?}", p1);
+
+      let p2 = Foo{e:999, ..p1};
+      println!("{:?}", p2);
+
+      // let p3 = Foo{..p1, e:666}; // 报错
+      // println!("{:?}", p3);
+
+      let p4 = Foo{a:11, b:22, c:33, ..p1};
+      println!("{:?}", p4);
+  }
+#+END_SRC
+
+#+RESULTS:
+: Foo { a: 1, b: 1, c: 2, d: 2, e: 2 }
+: Foo { a: 1, b: 1, c: 2, d: 2, e: 999 }
+: Foo { a: 11, b: 22, c: 33, d: 2, e: 2 }
+
+** Tuple Struct
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  struct Color(i32, i32, i32);
+
+  let mut c1 = Color(0, 255, 255);
+  println!("{:?}", c1);
+
+  c1.0 = 255;
+  println!("{:?}", c1);
+
+  match c1 {
+      Color(r, g, b) => println!("r=0x{r:x}, g=0x{g:x}, b=0x{b:x}"),
+  }
+#+END_SRC
+
+#+RESULTS:
+: Color(0, 255, 255)
+: Color(255, 255, 255)
+: r=0xff, g=0xff, b=0xff
+
+** Tuple Struct vs Type Alias
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug, PartialEq)]
+  struct Meters(i32);
+  #[derive(Debug)]
+  struct Yards(i32);
+
+  // support `==' or `+'
+  type MetersAlias = i32;
+  type YardsAlias = i32;
+
+  let a1 = Meters(0);
+  let c1 = Meters(0);
+  let b1 = Yards(1);
+  // println!("{:?}", a1 + c1);
+  // println!("{:?}", a1 == b1);
+
+
+  let a2 : MetersAlias=0;
+  let a3 : MetersAlias=1;
+  let b2 : YardsAlias=1;
+  println!("{:?}", a2 + a3);
+  // println!("{:?}", a1 == b2);
+#+END_SRC
+
+#+RESULTS:
+: 1
+
+** Unit Struct
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  struct Unit;
+  let u = Unit;
+  println!("{:?}", u);
+#+END_SRC
+
+#+RESULTS:
+: Unit
