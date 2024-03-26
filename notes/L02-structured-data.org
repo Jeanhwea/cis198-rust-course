@@ -1,0 +1,6 @@
+#+TITLE: 结构化的数据
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-03-27 Wed>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil
