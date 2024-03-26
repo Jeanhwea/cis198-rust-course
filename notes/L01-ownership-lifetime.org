@@ -84,15 +84,15 @@
   let v1 = vec![1, 2, 3];
 
   let v2 = &v1; // 发生了借用 v2
-  let v3 = v1; // 此时会报错，借用过后的数据区不允许再 move
+  let v3 = v1;  // 借用过后还可以转移所有权
 
-  println!("{v2:?}");
-  println!("{v3:?}");
-  println!("{v1:?}");
+  println!("{v2:?}");  // 但是不能再使用了
+  // println!("{v3:?}");
+  // println!("{v1:?}");
 #+END_SRC
 
 #+RESULTS:
-: error: Could not compile `cargoVzbNf8`.
+: error: Could not compile `cargo04KYls`.
 
 ** 包含函数的借用
 - 过了作用域会返回借用的数据区
