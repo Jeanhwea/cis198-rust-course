@@ -1,4 +1,4 @@
-#+TITLE: Lecture 1: 所有权和生命周期
+#+TITLE: CIS198 Lecture 1: 所有权和生命周期
 #+AUTHOR: Jinghui Hu
 #+EMAIL: hujinghui@buaa.edu.cn
 #+DATE: <2024-03-24 Sun>

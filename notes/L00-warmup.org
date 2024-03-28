@@ -1,4 +1,4 @@
-#+TITLE: Lecture 0: 预热
+#+TITLE: CIS198 Lecture 0: 预热
 #+AUTHOR: Jinghui Hu
 #+EMAIL: hujinghui@buaa.edu.cn
 #+DATE: <2024-03-23 Sat>
