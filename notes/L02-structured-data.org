@@ -339,3 +339,125 @@
 #+RESULTS:
 : Point { x: 6, y: 5 }
 : Point { x: -6, y: 5 }
+
+* 模式
+** 模式匹配
+- ~0...5~ 已经过期了，不推荐使用
+#+BEGIN_SRC rust :exports both
+  let x = 0;
+  match x {
+      0..=5 => println!("0-5"),
+      _ => println!("you still lost the game"),
+  }
+#+END_SRC
+
+#+RESULTS:
+: 0-5
+** 匹配引用
+#+BEGIN_SRC rust :exports both
+  let x = 17;
+  match x {
+      ref r => println!("Of type &i32: {}", r),
+  }
+#+END_SRC
+
+#+RESULTS:
+: Of type &i32: 17
+
+- ~ref mut~ 获取变量的可变引用
+#+BEGIN_SRC rust :exports both
+  let mut x = 5;
+  match x {
+      ref r if x == 5 => println!("r = {}", r),
+      ref mut r => *r = 5,
+  }
+  println!("{:?}", x);
+#+END_SRC
+
+#+RESULTS:
+: r = 5
+: 5
+
+** if-let 绑定
+#+BEGIN_SRC rust :exports both
+  enum Resultish {
+      Ok,
+      Warning{ code: i32, message: String},
+      Err(String)
+  }
+
+  // case1: 只考虑一种情况
+  match make_request() {
+      Resultish::Err(_) => println!("Total and utter failure");
+      _ => println!("ok");
+  }
+
+  // case2: 只考虑一种情况
+  let result = make_request();
+  if let Resultish::Err(s) = result {
+     println!("Failure: s = {:?}", s);
+  } else {
+     println!("ok");
+  }
+#+END_SRC
+
+** while-let 绑定
+#+BEGIN_SRC rust :exports both
+  enum Resultish {
+      Ok,
+      Warning{ code: i32, message: String},
+      Err(String)
+  }
+
+  let result = make_request();
+  while let Resultish::Err(s) = result {
+     println!("Failure: s = {:?}", s);
+  }
+#+END_SRC
+
+** 内部绑定 inner binding
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  enum A {
+      None,
+      Some(B)
+  }
+
+  #[derive(Debug)]
+  enum B {
+      None,
+      Some(i32)
+  }
+
+  fn foo(x: A) {
+      match x {
+          a @ A::None => println!("case I: {:?}", a),
+          ref a @ A::Some(B::None) => println!("case II: {:?}", a),
+          A::Some(b @ B::Some(_)) => println!("case III: {:?}", b),
+
+          // A::Some(b) => {
+          //     match b {
+          //         B::None => println!("Case II-1: {:?}", b),
+          //         B::Some(_) => println!("Case II-2: {:?}", b),
+          //     }
+          // },
+
+          _ => println!("default case")
+      }
+  }
+
+  foo(A::None);
+  foo(A::Some(B::None));
+  foo(A::Some(B::Some(42)));
+#+END_SRC
+
+#+RESULTS:
+: case I: None
+: Case II-1: None
+: Case II-2: Some(42)
+
+
+
+: case I: None
+: case II: Some(None)
+: case III: Some(42)
