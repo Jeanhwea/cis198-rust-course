@@ -22,7 +22,7 @@
 |------------------+---------+---------------------------+------------------|
 | <2024-03-23 Sat> | L00     | Course Introduction       | [[file:notes/l00-warmup.org][预热]]             |
 | <2024-03-26 Tue> | L01     | Ownership & Lifetimes     | [[file:notes/L01-ownership-lifetime.org][所有权和生命周期]] |
-|                  | L02     | Structured Data           | [[file:notes/L02-structured-data.org][结构化的数据]]     |
+| <2024-03-29 Fri> | L02     | Structured Data           | [[file:notes/L02-structured-data.org][结构化的数据]]     |
 |                  | L03     | Generics & Traits         |                  |
 |                  | L04     | Closures                  |                  |
 |                  | L05     | Standard Library          |                  |
