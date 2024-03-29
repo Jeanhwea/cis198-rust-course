@@ -461,3 +461,127 @@
 : case I: None
 : case II: Some(None)
 : case III: Some(42)
+
+* 生命周期
+** 多参数函数的生命周期
+1. 入参 ~x~ 和 ~y~ 与返回值生命周期都是 ~'a~
+#+BEGIN_SRC rust :exports both
+  fn borrow_x_or_y<'a>(x: &'a str, y: &'a str) -> &'a str {
+      //
+  }
+#+END_SRC
+
+1. ~p~ 的生命周期和返回值一样，都是 ~'a~
+2. ~q~ 生命周期和返回值没有限制，没有绑定关系， ~q~ 不需要存活于返回值之后
+#+BEGIN_SRC rust :exports both
+  fn borrow_p<'a, 'b>(p: &'a str, q: &'b str) -> &'a str {
+      //
+  }
+#+END_SRC
+
+** 生命周期和结构体
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  struct Pizza(Vec<i32>); // 披萨
+
+  #[derive(Debug)]
+  struct PizzaSlice<'a> { // 披萨切边
+      pizza: &'a Pizza,
+      index: u32,
+  }
+
+  let p1 = Pizza(vec![1, 2, 3, 4]);
+  println!("{:?}", p1);
+  {
+      let s1 = PizzaSlice{pizza: &p1, index: 2};
+      println!("{:?}", s1);
+  }
+  // println!("{:?}", s1);
+
+  let s2: PizzaSlice; // 披萨切片
+  {
+      let p2 = Pizza(vec![1, 2, 3, 4]);
+      println!("{:?}", p2);
+      s2 = PizzaSlice{pizza: &p2, index: 2};
+      // println!("{:?}", s2);
+  }
+  // p2 销毁了, s2 并没有销毁
+  // println!("{:?}", s2);
+#+END_SRC
+
+#+RESULTS:
+: Pizza([1, 2, 3, 4])
+: PizzaSlice { pizza: Pizza([1, 2, 3, 4]), index: 2 }
+: Pizza([1, 2, 3, 4])
+
+** 生命周期 outlive 限定符
+-  <'b: 'a> 说明 'b outlives 'a
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  struct Pizza(Vec<i32>); // 披萨
+
+  #[derive(Debug)]
+  struct PizzaSlice<'a> { // 披萨切边
+      pizza: &'a Pizza,
+      index: u32,
+  }
+
+  #[derive(Debug)]
+  struct PizzaConsumer<'a, 'b: 'a> { // 披萨消费者 【在吃披萨】, 'b: 'a 说明 'b outlives 'a
+      slice: PizzaSlice<'a>,  // 当前吃的披萨
+      pizza: &'b Pizza,      // 原始的披萨
+  }
+
+
+  fn get_another_slice(c: &mut PizzaConsumer, index: u32) {
+      c.slice = PizzaSlice{pizza: c.pizza, index: index}
+  }
+
+  let p = Pizza(vec![1, 2, 3, 4]);
+  {
+      let s = PizzaSlice{pizza: &p, index: 1};
+      // 初始化第一片🍕
+      let mut c = PizzaConsumer{slice: s, pizza: &p};
+
+      // 再吃一片，第二片🍕
+      get_another_slice(&mut c, 2);
+  }
+#+END_SRC
+
+#+RESULTS:
+
+** ~'static~ 生命周期
+- ~'static~ 指定程序运行时间都不销毁【一直存在】，静态的生命周期
+#+BEGIN_SRC rust :exports both
+  let s1: &str = "Hello";
+  let s2: &'static str = "World";
+#+END_SRC
+
+#+RESULTS:
+
+** struct 和 enum 中引用类型都需要显示指定生命周期
+#+BEGIN_SRC rust :exports both
+  struct Foo<'a, 'b> {
+      v: &'a Vec<i32>, // 会回收
+      s: &'b str,      // 'static
+  }
+#+END_SRC
+
+#+RESULTS:
+
+** impl 的生命周期
+#+BEGIN_SRC rust :exports both
+  struct Foo<'a, 'b> {
+      v: &'a Vec<i32>, // 会回收
+      s: &'b str,      // 'static
+  }
+
+  // 实现的上面周期
+  impl<'a, 'b> Foo<'a, 'b> {
+      fn new(v: &'a Vec<i32>, s: &'b str) -> Foo<'a, 'b> {
+          Foo {v: v, s: s}
+      }
+  }
+#+END_SRC
+
+#+RESULTS:
