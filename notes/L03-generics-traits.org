@@ -246,3 +246,150 @@
 - Eq, PartialEq
 - Hash
 - Ord, PartialOrd
+
+* 关联类型
+- 图 graph
+- 节点集 node
+- 边集 edge
+#+BEGIN_SRC rust :exports both
+  trait Graph<N, E> {
+      fn edges(&self, n: &N) -> Vec<E>;
+  }
+
+  // 求图中两个节点的距离
+  fn distance<N, E, G: Graph<N, E>>(graph: &G, start: &N, end: &N) -> u32 {
+      1
+  }
+#+END_SRC
+
+#+RESULTS:
+
+改进版
+#+BEGIN_SRC rust :exports both
+  trait Graph {
+      type N;
+      type E;
+      fn edges(&self, n: &Self::N) -> Vec<Self::E>;
+  }
+
+  struct MyGraph {}
+  struct MyNode {}
+  struct MyEdge {}
+
+  impl Graph for MyGraph {
+      type N = MyNode;
+      type E = MyEdge;
+      fn edges(&self, n: &MyNode) -> Vec<MyEdge> {
+        vec![]
+      }
+  }
+#+END_SRC
+
+#+RESULTS:
+
+关联类型
+- struct MyGraph {}
+- struct MyNode {}
+- struct MyEdge {}
+
+* Trait 作用域
+** i32 实现 Foo trait
+#+BEGIN_SRC rust :exports both
+  trait Foo {
+      fn bar(&self) -> bool;
+  }
+
+  impl Foo for i32 {
+      fn bar(&self) -> bool {
+          true
+      }
+  }
+
+  println!("{}", (-123i32).bar());
+#+END_SRC
+
+#+RESULTS:
+: true
+** 实现 Point 的 Display
+#+BEGIN_SRC rust :exports both
+  use std::fmt::{self, Display};
+  struct Point {
+      x: i32,
+      y: i32,
+  }
+
+  impl Display for Point {
+      fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+          write!(f, "Pt({},{})", self.x, self.y)
+      }
+  }
+
+  let p0 = Point { x: 0, y: 0 };
+  println!("{}", p0);       // Display
+  // println!("{:?}", p0); // Debug
+#+END_SRC
+
+#+RESULTS:
+: Pt(0,0)
+
+* Trait 对象
+** 静态分配
+#+BEGIN_SRC rust :exports both
+  trait Foo { fn bar(&self); }
+
+  impl Foo for String {
+      fn bar(&self) {
+          println!("String[{}]", self);
+      }
+  }
+
+  impl Foo for i32 {
+      fn bar(&self) {
+          println!("i32[{}]", self);
+      }
+  }
+
+  fn blah<T>(x: T) where T: Foo {
+      x.bar()
+  }
+
+  let s = "xxx".to_string();
+  let i = 12;
+  blah(s);
+  blah(i);
+#+END_SRC
+
+#+RESULTS:
+: String[xxx]
+: i32[12]
+
+** 动态分配
+#+BEGIN_SRC rust :exports both
+  trait Foo { fn bar(&self); }
+
+  impl Foo for char {
+      fn bar(&self) {
+          println!("char[{}]", self);
+      }
+  }
+
+  impl Foo for i32 {
+      fn bar(&self) {
+          println!("i32[{}]", self);
+      }
+  }
+
+  fn use_foo(f: &dyn Foo) {
+      match *f {  // 编译时出错: error[E0308]: mismatched types
+          198 => println!("198 aaa"),
+          'c' => println!("See?"),
+          _ => println!("Something else..."),
+      }
+  }
+
+  use_foo(&'c'); // 这里发生强制转换，抹除了类型信息
+  use_foo(&198i32);
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargo45Rxl1`.

@@ -1,3 +1,5 @@
+use std::fmt::{self, Display};
+
 // Trait 类似于 Java 的接口或 Haskell 的 typeclass
 trait PrettyPrint {
     fn format(&self) -> String;
@@ -41,16 +43,20 @@ where
     }
 }
 
-struct Point<i32> {
+struct Point {
     x: i32,
     y: i32,
 }
 
-impl PartialOrd for Point {
-
+impl Display for Point {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "PPP({},{})", self.x, self.y)
+    }
 }
 
 fn main() {
+    let p0 = Point { x: 0, y: 0 };
+    println!("{}", p0);
     // let ok1:Result::<String, String> = Result::Ok("1".to_string());
     // let ok2 = Result::Ok::<String, String>("1".to_string());
     // println!("{:?}", ok1);
