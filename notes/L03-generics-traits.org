@@ -14,3 +14,45 @@
       Err(String),
   }
 #+END_SRC
+
+- ~T~ / ~E~ 表示泛型
+#+BEGIN_SRC rust :exports both
+  enum Result<T, E> {
+      Ok(T),
+      Err(E),
+  }
+#+END_SRC
+
+** 泛型例子
+#+BEGIN_SRC rust :exports both
+  struct Point<T> {
+      x: T,
+      y: T,
+  }
+
+  enum List<T> {
+      Nil,
+      Cons(T, Box<List<T>>),
+  }
+#+END_SRC
+
+#+RESULTS:
+
+#+BEGIN_SRC rust :exports both
+  enum Result<T, E> {
+      Ok(T),
+      Err(E),
+  }
+
+  impl<T, E> Result<T, E> {
+      fn is_ok(&self) -> bool {
+          match *self {
+              Ok(_) => true,
+              Err(_) => false,
+          }
+      }
+  }
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargo8I6mnS`.
