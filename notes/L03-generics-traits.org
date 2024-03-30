@@ -25,6 +25,13 @@
 
 ** 泛型例子
 #+BEGIN_SRC rust :exports both
+  // 非泛型，直接类型
+  struct Point {
+      x: i32,
+      y: i32,
+  }
+
+  // T 泛型: T: i32/i64/f32
   struct Point<T> {
       x: T,
       y: T,
@@ -56,3 +63,98 @@
 
 #+RESULTS:
 : error: Could not compile `cargo8I6mnS`.
+
+* Trait
+** 简单说明
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  struct Point {
+      x: i32,
+      y: i32,
+  }
+
+  struct Line {
+      from: Point,
+      to: Point,
+  }
+
+  // Trait 类似于 Java 的接口或 Haskell 的 typeclass
+  trait PrettyPrint {
+      fn format(&self) -> String;
+  }
+
+  // 实现 Trait
+  impl PrettyPrint for Point {
+      fn format(&self) -> String {
+          format!("({},{})", self.x, self.y)
+      }
+  }
+
+  impl PrettyPrint for Line {
+      fn format(&self) -> String {
+          format!("[{}->{}]", self.from.format(), self.to.format())
+      }
+  }
+
+  fn main() {
+      let p0 = Point { x: 0, y: 0 };
+      let p1 = Point { x: 1, y: 1 };
+      let line = Line { from: p0, to: p1 };
+      println!("{}", line.format());
+
+      // let p1 = Point{x:1, y:0};
+      // println!("{}", p0.equals(p1));
+  }
+#+END_SRC
+
+** 泛型的 Trait Bound
+#+BEGIN_SRC rust :exports both
+  // 范围限定
+  fn cloning_machine<T: Clone>(t: T) -> (T, T) {
+      (t.clone(), t.clone())
+  }
+
+  fn cloning_machine<T>(t: T) -> (T, T) where T: Clone {
+      (t.clone(), t.clone())
+  }
+#+END_SRC
+
+** 标准库的 PrettyPrint
+#+BEGIN_SRC rust :exports both
+  // 使用标准库中的 Result
+  // #[derive(Debug)]
+  // enum Result<T, E> {
+  //     Ok(T),
+  //     Err(E),
+  // }
+
+  // Trait 类似于 Java 的接口或 Haskell 的 typeclass
+  trait PrettyPrint {
+      fn format(&self) -> String;
+  }
+
+  impl<T: PrettyPrint, E: PrettyPrint> PrettyPrint for Result<T, E> {
+      fn format(&self) -> String {
+          match self {
+              Ok(t) => format!("Ok({})", t.format()), // 需要调用 format() 方法， 所以 T 必需实现 PrettyPrint
+              Err(e) => format!("Err({})", e.format()),
+          }
+      }
+  }
+
+  fn main() {
+      // let p0 = Point { x: 0, y: 0 };
+      // let p1 = Point { x: 1, y: 1 };
+      // let line = Line { from: p0, to: p1 };
+      // println!("{}", line.format());
+
+      // let p1 = Point{x:1, y:0};
+      // println!("{}", p0.equals(p1));
+
+      let e1: Result<String, String> = Result::Ok("xxx".to_string());
+      println!("{:?}", e1);
+
+      let e2: Result<String, String> = Result::Err("yyy".to_string());
+      println!("{:?}", e2);
+  }
+#+END_SRC
