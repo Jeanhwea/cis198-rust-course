@@ -1,0 +1,16 @@
+#+TITLE: CIS198 Lecture 3: 泛型和 Trait
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-03-30 Sat>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil
+
+
+* 泛型
+** 泛型入门
+#+BEGIN_SRC rust :exports both
+  enum Result {
+      Ok(String),
+      Err(String),
+  }
+#+END_SRC
