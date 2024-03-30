@@ -41,11 +41,19 @@ where
     }
 }
 
-fn main() {
-    let ok1:Result::<String, String> = Result::Ok("1".to_string());
-    let ok2 = Result::Ok::<String, String>("1".to_string());
-    println!("{:?}", ok1);
-    println!("{:?}", ok2);
+struct Point<i32> {
+    x: i32,
+    y: i32,
+}
 
+impl PartialOrd for Point {
+
+}
+
+fn main() {
+    // let ok1:Result::<String, String> = Result::Ok("1".to_string());
+    // let ok2 = Result::Ok::<String, String>("1".to_string());
+    // println!("{:?}", ok1);
+    // println!("{:?}", ok2);
     // println!("{:?}", ok1.equals(&ok2));
 }

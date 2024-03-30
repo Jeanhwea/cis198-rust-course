@@ -184,3 +184,65 @@
 #+RESULTS:
 : Ok("1")
 : Ok("1")
+
+* 继承
+** trait 的继承
+#+BEGIN_SRC rust :exports both
+  trait Parent {
+      fn foo(&self) {
+          //
+      }
+  }
+
+  trait Child: Parent {
+      fn bar(&self) {
+          self.foo();
+          //
+      }
+  }
+#+END_SRC
+
+#+RESULTS:
+** 默认方法实现
+#+BEGIN_SRC rust :exports both
+  trait AAA {
+      fn foo(&self) -> bool {
+         true
+      }
+  }
+#+END_SRC
+
+#+RESULTS:
+
+* 派生
+** 派生入门
+- 通过 ~#[derive(...)]~ 指定需要派生的 trait
+- 如果有继承关系，需要同时派生其父 trait
+#+BEGIN_SRC rust :exports both
+  #[derive(Eq, PartialEq, Debug)]
+  enum Result<T, E> {
+      Ok<T>,
+      Err<E>,
+  }
+#+END_SRC
+** Clone
+#+BEGIN_SRC rust :exports both
+  #[derive(Clone)]
+  struct Foo {
+      x: i32,
+  }
+
+  #[derive(Clone)]
+  struct Bar {
+      x: Foo,
+  }
+#+END_SRC
+
+#+RESULTS:
+** 核心 trait
+- Clone, Copy
+- Debug
+- Default
+- Eq, PartialEq
+- Hash
+- Ord, PartialOrd
