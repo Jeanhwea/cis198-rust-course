@@ -179,3 +179,109 @@
 : ans1 = 8
 : ans2 = 4
 : 0x7ff7b66f9c38
+
+* 闭包捕获环境
+** 高级函数返回闭包
+1. ~make_closure(...)~ 是一个高级函数
+2. 返回闭包
+#+BEGIN_SRC rust :exports both
+  fn make_closure(x: i32) -> Box<dyn Fn(i32) -> i32> {
+      let f = move |y| x + y;
+      Box::new(f)
+  }
+
+  let f = make_closure(2);
+  println!("{}", f(3));
+#+END_SRC
+
+#+RESULTS:
+: 5
+** 闭包所有权
+没有实现 Copy trait 导致的 move 失效
+#+BEGIN_SRC rust :exports both
+  let lottey_numbers = vec![11, 39, 51];
+  // let lottey_numbers = 12312;
+  {
+      let ticket = || { lottey_numbers };
+  }
+  println!("{:?}", lottey_numbers);
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargodTwqpb`.
+#+BEGIN_EXAMPLE
+    |
+  3 | let lottey_numbers = vec![11, 39, 51];
+    |     -------------- move occurs because `lottey_numbers` has type `Vec<i32>`, which does not implement the `Copy` trait
+  ...
+  6 |     let ticket = || { lottey_numbers };
+    |                  --   -------------- variable moved due to use in closure
+    |                  |
+    |                  value moved into closure here
+  7 | }
+  8 | println!("{:?}", lottey_numbers);
+    |                  ^^^^^^^^^^^^^^ value borrowed here after move
+#+END_EXAMPLE
+
+** 闭包所有权 2
+#+BEGIN_SRC rust :exports both
+  let numbers = vec![1, 2, 3];
+  // let numbers = 123;
+  let alphabet = move || {
+      println!("{:?}", numbers);
+  };
+
+  alphabet();
+  alphabet();
+#+END_SRC
+
+#+RESULTS:
+: [1, 2, 3]
+: [1, 2, 3]
+
+* 闭包所有权 2
+** 多次调用
+#+BEGIN_SRC rust :exports both
+  let numbers = vec![1, 2, 3];
+  // let numbers = 123;
+  let alphabet = || {numbers; vec!['a', 'b']};
+
+  alphabet();
+  alphabet();
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargodTwqpb`.
+
+** 多次调用
+#+BEGIN_SRC rust :exports both
+  let numbers = vec![1, 2, 3];
+  // let numbers = 123;
+  let alphabet = move || {
+      println!("{:?}", numbers);
+  };
+
+  alphabet();
+  alphabet();
+#+END_SRC
+
+#+RESULTS:
+: [1, 2, 3]
+: [1, 2, 3]
+
+* 闭包的应用范围
+** 作为函数入参
+1. 参考 map() 函数
+** 作为返回值
+1. 尝试 Fn, 因为 Fn 编译时不时常量大小
+2. 尝试引用, 出现无法确定生命周期
+3. ~Box<dyn Fn...>~
+4. ~Box::new(move || ...)~
+#+BEGIN_SRC rust :exports both
+  fn make_f() -> Box<dyn Fn(i32) -> i32> {
+      let local = 2;
+      Box::new(move |x| x * local)
+  }
+#+END_SRC
+
+#+RESULTS:
