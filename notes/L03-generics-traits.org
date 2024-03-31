@@ -1,7 +1,7 @@
 #+TITLE: CIS198 Lecture 3: 泛型和 Trait
 #+AUTHOR: Jinghui Hu
 #+EMAIL: hujinghui@buaa.edu.cn
-#+DATE: <2024-03-30 Sat>
+#+DATE: <2024-03-31 Sun>
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
 
