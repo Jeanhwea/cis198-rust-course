@@ -6,3 +6,176 @@
 #+OPTIONS: ^:nil
 
 * 闭包
+** 闭包介绍
+#+BEGIN_SRC rust :exports both
+  fn sqrt(x: i32) -> i32 {
+      x*x
+  }
+  println!("x = {}", sqrt(2));
+
+  let square = |x: i32| -> i32 { x * x };
+  println!("y = {}", square(2));
+#+END_SRC
+
+#+RESULTS:
+: x = 4
+: y = 4
+
+** 各种闭包写法
+#+BEGIN_SRC rust :exports both
+  let foo_v1 = |x: i32| x * x;
+  println!("foo_v1(3) = {}", foo_v1(3));
+
+  let foo_v2 = |x: i32, y: i32| x * y;
+  println!("foo_v2(3, 4) = {}", foo_v2(3, 4));
+
+  let foo_v3 = |x: i32| {
+      let y = x * 2;
+      let z = 4 * y;
+      x + y + z
+  };
+  println!("foo_v3(4) = {}", foo_v3(4));
+
+  let foo_v4 = |x: i32| if x == 0 { 0 } else { 1 };
+  println!("foo_v4(4) = {}", foo_v4(4));
+#+END_SRC
+
+#+RESULTS:
+: foo_v1(3) = 9
+: foo_v2(3, 4) = 12
+: foo_v3(4) = 44
+: foo_v4(4) = 1
+
+** 闭包中的类型推导
+#+BEGIN_SRC rust :exports both
+    let square_v1 = |x: i32| {(x * x) as u32};
+    println!("ans = {}", square_v1(3));
+
+    // ❎ 错误写法
+    // let square_v2 = |x: i32| -> i32 { (x * x) as u32 };
+
+    // ❎ 错误写法：无法进行类型推导
+    // let square_v3 = |x| x * x;
+
+    // 10 | let square_v3 = |x: /* Type */| x * x;
+    //    |                   ++++++++++++
+#+END_SRC
+
+#+RESULTS:
+: ans = 9
+
+* 环境
+** 捕获环境
+1. magic_num 是环境中的变量
+2. plus_magic() 时会被捕获环境中的变量
+#+BEGIN_SRC rust :exports both
+  let magic_num = 5;
+  let magic_johnson = 32;
+  let plus_magic = |x: i32| x + magic_num;
+  println!("v1 = {}", plus_magic(3));
+
+  let plus_magic_v2 = |x: i32, y: i32| x + y;
+  println!("v2 = {}", plus_magic_v2(3, magic_johnson));
+#+END_SRC
+
+#+RESULTS:
+: v1 = 8
+: v2 = 35
+
+** 捕获环境 - 闭包借用环境中的变量
+1. plus_magic 会借用 magic_num
+2. 前提是你必须使用 plus_magic
+#+BEGIN_SRC rust :exports both
+  let mut magic_num = 5;
+  let magic_johnson = 32;
+
+  let plus_magic = |x: i32| x + magic_num;
+
+  magic_num = 4;
+  println!("{}", plus_magic(3));
+  // println!("{}", magic_num);
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargo0LDwiH`.
+
+#+BEGIN_EXAMPLE
+  error[E0506]: cannot assign to `magic_num` because it is borrowed
+   --> src/main.rs:8:1
+    |
+  6 | let plus_magic = |x: i32| x + magic_num;
+    |                  --------     --------- borrow occurs due to use in closure
+    |                  |
+    |                  `magic_num` is borrowed here
+  7 |
+  8 | magic_num = 4;
+    | ^^^^^^^^^^^^^ `magic_num` is assigned to here but it was already borrowed
+  9 | println!("{}", plus_magic(3));
+    |                ---------- borrow later used here
+
+  For more information about this error, try `rustc --explain E0506`.
+  error: could not compile `cargo0LDwiH` (bin "cargo0LDwiH") due to 1 previous error
+#+END_EXAMPLE
+
+** 捕获环境 - 闭包借用环境中的变量
+1. 通过作用域方式解决 borrow 问题
+#+BEGIN_SRC rust :exports both
+  let mut magic_num = 5;
+  let magic_johnson = 32;
+
+  {
+      let plus_magic = |x: i32| {
+          println!("{:p}", &magic_num);
+          x + magic_num
+      };
+      println!("{}", plus_magic(3));
+  } // 出作用域时，借用会返还所有权
+
+  magic_num = 4;
+  println!("{:p}", &magic_num);
+#+END_SRC
+
+#+RESULTS:
+: 0x7ff7b4fdac94
+: 8
+: 0x7ff7b4fdac94
+
+** 捕获环境 - move 语义
+- move 语义，就是把环境中捕获的变量 clone 过来
+#+BEGIN_SRC rust :exports both
+  let mut magic_num = 5;
+  let magic_johnson = 32;
+
+  let plus_magic = move |x: i32| x + magic_num;
+
+  magic_num = 4;
+  println!("ans1 = {}", plus_magic(3));
+  println!("ans2 = {}", magic_num);
+#+END_SRC
+
+#+RESULTS:
+: ans1 = 8
+: ans2 = 4
+
+** 捕获环境 - move 语义 - 探究
+- move 语义，就是把环境中捕获的变量 clone 过来
+#+BEGIN_SRC rust :exports both
+  let mut magic_num = 5;
+  let magic_johnson = 32;
+
+  let plus_magic = move |x: i32| {
+      println!("{:p}", &magic_num);
+      x + magic_num
+  };
+
+  magic_num = 4;
+  println!("ans1 = {}", plus_magic(3));
+  println!("ans2 = {}", magic_num);
+  println!("{:p}", &magic_num);
+#+END_SRC
+
+#+RESULTS:
+: 0x7ff7b66f9c3c
+: ans1 = 8
+: ans2 = 4
+: 0x7ff7b66f9c38
