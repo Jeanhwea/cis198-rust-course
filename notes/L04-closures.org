@@ -181,8 +181,8 @@
 : 0x7ff7b66f9c38
 
 * 闭包捕获环境
-** 高级函数返回闭包
-1. ~make_closure(...)~ 是一个高级函数
+** 高阶函数返回闭包
+1. ~make_closure(...)~ 是一个高阶函数
 2. 返回闭包
 #+BEGIN_SRC rust :exports both
   fn make_closure(x: i32) -> Box<dyn Fn(i32) -> i32> {
