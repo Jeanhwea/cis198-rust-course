@@ -1,0 +1,37 @@
+#+TITLE: CIS198 Lecture 5: 标准库
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-04-01 Mon>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil
+
+
+* 字符串
+** 字符串类型
+1. rust 的字符串比较复杂
+   - Unicode 编码序列
+   - 不是以 null 结尾的数据
+2. 通常我们使用的有两种字符串： ~&str~ 和 ~String~
+
+** ~&str~
+1. ~&str~ 是字符串切片（有点像数组切片）
+2. ~"string literals"~ 是 ~&str~ ，通常是 ~&'static str~
+3. ~&str~ 是静态分配的，并且必须是定长的
+4. 不要使用数组下标的方式 ~s[i]~ 访问字符串，因为 Unicode 可能包括多字节字符
+
+如果需要访问使用 ~chars()~ 迭代访问
+#+BEGIN_SRC rust :exports both
+  for ch in "我 ❤ rust".chars() {
+      println!("{:?}", ch);
+  }
+#+END_SRC
+
+#+RESULTS:
+: '我'
+: ' '
+: '❤'
+: ' '
+: 'r'
+: 'u'
+: 's'
+: 't'
