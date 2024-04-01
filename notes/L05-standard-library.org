@@ -13,7 +13,7 @@
    - 不是以 null 结尾的数据
 2. 通常我们使用的有两种字符串： ~&str~ 和 ~String~
 
-** ~&str~
+** ~&str~ 类型
 1. ~&str~ 是字符串切片（有点像数组切片）
 2. ~"string literals"~ 是 ~&str~ ，通常是 ~&'static str~
 3. ~&str~ 是静态分配的，并且必须是定长的
@@ -35,3 +35,68 @@
 : 'u'
 : 's'
 : 't'
+
+** ~String~ 类型
+1. ~String~ 是堆分配的，可以动态增长，它其实是 ~Vec<u8>~ 的包裹
+2. ~String~ 不能使用数组下标索引，需要调用 ~s.nth(i)~
+3. 可以通过引用 ~String~ 来创建 ~&str~
+   - 注意： ~str~ 是 ~Unsized~ 类型，它在编译时不可用，所以一般只用其引用，即 ~&str~
+
+#+BEGIN_SRC rust :exports both
+  let s0: String = String::new();
+  let s1: String = "foo".to_string();
+  let s2: String = String::from("bar");
+  let s3: &str = &s0;
+
+  println!("s0 = {:?}", s0);
+  println!("s1 = {:?}", s1);
+  println!("s2 = {:?}", s2);
+  println!("s3 = {:?}", s3);
+#+END_SRC
+
+#+RESULTS:
+: s0 = ""
+: s1 = "foo"
+: s2 = "bar"
+: s3 = "bar"
+
+** 字符串的一些操作
+#+BEGIN_SRC rust :exports both
+  let s1 = "aaa".to_string();
+  println!("s1 = {:?}", s1);
+  let s2 = s1 + "bbb";
+  println!("s2 = {:?}", s2);
+#+END_SRC
+
+#+RESULTS:
+: s1 = "aaa"
+: s2 = "aaabbb"
+
+两个 ~String~ 拼接会出错，需要将后面的转成 ~&str~
+#+BEGIN_SRC rust :exports both
+  let s1 = String::from("aaa");
+  let s2 = String::from("bbb");
+  let s3 = s1 + s2;
+  println!("s3 = {:?}", s3);
+#+END_SRC
+
+#+BEGIN_EXAMPLE
+  error[E0308]: mismatched types
+   --> src/main.rs:5:15
+    |
+  5 | let s3 = s1 + s2;
+    |               ^^ expected `&str`, found `String`
+    |
+  help: consider borrowing here
+    |
+  5 | let s3 = s1 + &s2;
+    |               +
+#+END_EXAMPLE
+
+两个 ~&str~ 无法拼接，下面的代码时错误的
+#+BEGIN_SRC rust :exports both
+  let s1 = "aaa" + "bbb";
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargo0cNidl`.
