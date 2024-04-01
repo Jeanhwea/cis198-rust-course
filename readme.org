@@ -24,7 +24,7 @@
 | <2024-03-26 Tue> | L01     | Ownership & Lifetimes     | [[file:notes/L01-ownership-lifetime.org][所有权和生命周期]] |
 | <2024-03-29 Fri> | L02     | Structured Data           | [[file:notes/L02-structured-data.org][结构化的数据]]     |
 | <2024-03-31 Sun> | L03     | Generics & Traits         | [[file:notes/L03-generics-traits.org][泛型和 Trait]]     |
-|                  | L04     | Closures                  | [[file:notes/L04-closures.org][闭包]]             |
+| <2024-04-02 Tue> | L04     | Closures                  | [[file:notes/L04-closures.org][闭包]]             |
 |                  | L05     | Standard Library          |                  |
 |                  | L06     | std_ Pointer Types        |                  |
 |                  | L07     | Misc_ Syntax, Crates, std |                  |
