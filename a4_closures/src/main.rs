@@ -1,4 +1,4 @@
-// 简单的缓存器
+// 简单缓存：仅缓存第一次设置的值，通过 query 闭包进行转换
 struct Cacher<F>
 where
     F: Fn(i32) -> i32,
@@ -11,9 +11,9 @@ impl<F> Cacher<F>
 where
     F: Fn(i32) -> i32,
 {
-    // 构造器
+    // 构造器 constructor
     fn new(query: F) -> Self {
-        Cacher {
+        Self {
             query: query,
             value: None,
         }
@@ -33,7 +33,7 @@ where
 }
 
 fn main() {
-    let mut cache = Cacher::new(|x: i32| x);
+    let mut cache = Cacher::new(|x: i32| x + 1);
     println!("{:?}", cache.value(1));
     println!("{:?}", cache.value);
     println!("{:?}", cache.value(8));

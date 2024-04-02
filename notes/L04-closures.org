@@ -286,17 +286,30 @@
 
 #+RESULTS:
 
-* 闭包加深理解
+* 加深理解闭包
+** 闭包回顾
+1. 函数 ~|...| {...}~
+   - 语法糖 (syntax sugar)
+   - Fn/FnMut/FnOnce
+2. 环境 捕获环境中的变量
+   - 所有权
+3. C 语言
+   - struct 结构体
+   - 函数指针
+4. lisp 语言
+   - 函数时一等公民 (first-class)
+   - f/i32/i64
 ** 闭包类型推导
 闭包类型推导很好用，但是它不是泛型，当编译器推导出一种类型后，它就会一直使用该类型
 #+BEGIN_SRC rust :exports both
   let square = |x| x * x;
-  println!("ans = {}", square(3));
-  // println!("ans = {}", square(3.0));
+  // println!("ans = {}", square(3));
+  println!("ans = {}", square(3.1));
+  // list01.iter().map(|x|2*x)
 #+END_SRC
 
 #+RESULTS:
-: error: Could not compile `cargoeqEn4e`.
+: ans = 9.610000000000001
 
 ** 三种类型的闭包
 1. FnOnce 转移所有权
@@ -326,6 +339,7 @@
    #+END_SRC
 
 ** 闭包作为类型
+官方示例
 #+BEGIN_SRC rust :exports both
   struct Cacher<F>
   where
