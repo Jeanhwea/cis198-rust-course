@@ -324,3 +324,7 @@
          extern "rust-call" fn call_once(self, args: Args) -> Self::Output;
      }
    #+END_SRC
+
+** 闭包作为类型
+#+BEGIN_SRC rust :exports both
+#+END_SRC
