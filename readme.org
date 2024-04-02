@@ -25,7 +25,7 @@
 | <2024-03-29 Fri> | L02     | Structured Data           | [[file:notes/L02-structured-data.org][结构化的数据]]     |
 | <2024-03-31 Sun> | L03     | Generics & Traits         | [[file:notes/L03-generics-traits.org][泛型和 Trait]]     |
 | <2024-04-02 Tue> | L04     | Closures                  | [[file:notes/L04-closures.org][闭包]]             |
-|                  | L05     | Standard Library          |                  |
+|                  | L05     | Standard Library          | [[file:notes/L05-standard-library.org][标准库]]           |
 |                  | L06     | std_ Pointer Types        |                  |
 |                  | L07     | Misc_ Syntax, Crates, std |                  |
 |                  | L08     | IO                        |                  |
