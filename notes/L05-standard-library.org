@@ -10,7 +10,7 @@
 ** 字符串类型
 1. rust 的字符串比较复杂
    - Unicode 编码序列
-   - 不是以 null 结尾的数据
+   - 不是以 null/ ~\0~ 结尾的数据
 2. 通常我们使用的有两种字符串： ~&str~ 和 ~String~
 
 ** ~&str~ 类型
@@ -47,18 +47,21 @@
   let s1: String = "foo".to_string();
   let s2: String = String::from("bar");
   let s3: &str = &s0;
+  let s4: &str = &s1;
 
   println!("s0 = {:?}", s0);
   println!("s1 = {:?}", s1);
   println!("s2 = {:?}", s2);
   println!("s3 = {:?}", s3);
+  println!("s4 = {:?}", s4);
 #+END_SRC
 
 #+RESULTS:
 : s0 = ""
 : s1 = "foo"
 : s2 = "bar"
-: s3 = "bar"
+: s3 = ""
+: s4 = "foo"
 
 ** 字符串的一些操作
 #+BEGIN_SRC rust :exports both
@@ -93,10 +96,137 @@
     |               +
 #+END_EXAMPLE
 
+后面的字符串需要转成 ~&str~
+#+BEGIN_SRC rust :exports both
+  let s1 = String::from("aaa");
+  let s2 = String::from("bbb");
+  let s3 = s1 + &s2;
+  println!("s3 = {:?}", s3);
+#+END_SRC
+
+#+RESULTS:
+: s3 = "aaabbb"
+
 两个 ~&str~ 无法拼接，下面的代码时错误的
 #+BEGIN_SRC rust :exports both
   let s1 = "aaa" + "bbb";
 #+END_SRC
 
+#+BEGIN_EXAMPLE
+  error[E0369]: cannot add `&str` to `&str`
+   --> src/main.rs:3:16
+    |
+  3 | let s1 = "aaa" + "bbb";
+    |          ----- ^ ----- &str
+    |          |     |
+    |          |     `+` cannot be used to concatenate two `&str` strings
+    |          &str
+    |
+    = note: string concatenation requires an owned `String` on the left
+#+END_EXAMPLE
+
+修复后
+#+BEGIN_SRC rust :exports both
+  let s1 = "aaa".to_owned() + "bbb";
+  println!("s1 = {:?}", s1);
+#+END_SRC
+
+* Option
+** Option 使用
+#+BEGIN_SRC rust :exports both
+  let opt1:Option<i32> = None;
+  match opt1 {
+      None => println!("nothing"),
+      Some(v) => println!("v = {v}")
+  }
+#+END_SRC
+
 #+RESULTS:
-: error: Could not compile `cargo0cNidl`.
+: nothing
+
+** Option::unwrap
+#+BEGIN_SRC rust :exports both
+  // let opt1:Option<i32> = Some(123);
+  let opt1:Option<i32> = None;
+  println!("v = {}", opt1.unwrap())
+#+END_SRC
+
+#+RESULTS:
+: cargospm6v6
+
+** Option::map()
+映射包裹里面的值
+#+BEGIN_SRC rust :exports both
+  // let opt1: Option<i32> = None;
+  let opt1: Option<i32> = Some(3);
+  println!("opt1 = {:?}", opt1);
+  let opt2 = opt1.map(|x| x + 1);
+  println!("opt2 = {:?}", opt2);
+#+END_SRC
+
+#+RESULTS:
+: opt1 = Some(3)
+: opt2 = Some(4)
+
+** Option::and_then()
+1. 于 map 的区别是返回值需要包裹 Some
+#+BEGIN_SRC rust :exports both
+  let opt1: Option<i32> = Some(3);
+  println!("opt1 = {:?}", opt1);
+  let opt2 = opt1.and_then(|x| Some(x + 1));
+  println!("opt2 = {:?}", opt2);
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargoDVNc2C`.
+** Option::unwrap_or()
+提供默认值
+#+BEGIN_SRC rust :exports both
+  let base = 3;
+  // let opt1: Option<i32> = Some(3);
+  let opt1: Option<i32> = None;
+  // println!("ans = {}", opt1.unwrap_or(999));
+  println!("ans = {}", opt1.unwrap_or_else(|| base + 5));
+#+END_SRC
+
+#+RESULTS:
+: ans = 8
+
+* Result 错误处理
+#+BEGIN_SRC rust :exports both
+  fn foo() -> Result<i32, String> {
+      // Result::Ok(1)
+      Result::Err("xxx".to_string())
+  }
+
+  match foo() {
+      Ok(code) => println!("code = {code}"),
+      Err(msg) => println!("msg = {msg}"),
+  }
+#+END_SRC
+
+#+RESULTS:
+: msg = xxx
+
+anyhow 库做错误处理
+
+# error: use of deprecated `try` macro
+#+BEGIN_SRC rust :exports both
+  fn foo() -> Result<i32, String> {
+      // Result::Ok(1)
+      Result::Err("xxx".to_string())
+  }
+
+  fn bar() -> Result<i32, String> {
+      // let ans = try!(foo());
+      let ans = foo()?;
+      // println!("ans = {:?}", ans);
+      Ok(ans)
+  }
+
+  let aa = bar();
+  println!("{:?}", aa);
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargoZbtxiL`.
