@@ -33,7 +33,7 @@ where
 }
 
 fn main() {
-    let mut cache = Cacher::new(|x: i32| x + 1);
+    let mut cache = Cacher::new(|x| x + 1);
     println!("{:?}", cache.value(1));
     println!("{:?}", cache.value);
     println!("{:?}", cache.value(8));
