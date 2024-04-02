@@ -327,4 +327,14 @@
 
 ** 闭包作为类型
 #+BEGIN_SRC rust :exports both
+  struct Cacher<F>
+  where
+      F: Fn(i32) -> i32,
+  {
+      query: F,
+      value: Option<i32>,
+  }
 #+END_SRC
+
+实现闭包的逻辑代码
+[[file:../a4_closures/src/main.rs]]
