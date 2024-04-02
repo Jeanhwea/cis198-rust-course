@@ -21,11 +21,11 @@ where
 
     // 查询接口：只缓存一次
     fn value(&mut self, arg: i32) -> i32 {
-        match self.value.clone() {
+        match self.value {
             Some(v) => v,
             None => {
                 let v = (self.query)(arg);
-                self.value = Some(v.clone());
+                self.value = Some(v);
                 v
             }
         }
