@@ -230,3 +230,49 @@ anyhow 库做错误处理
 
 #+RESULTS:
 : error: Could not compile `cargoZbtxiL`.
+
+* 集合
+** ~Vec<T>~
+1. 变长数组
+#+BEGIN_SRC rust :exports both
+  let mut vec = Vec::new();
+  vec.push(1);
+  vec.push(2);
+
+  assert_eq!(vec.len(), 2);
+  assert_eq!(vec[0], 1);
+
+  assert_eq!(vec.pop(), Some(2));
+  assert_eq!(vec.len(), 1);
+
+  vec[0] = 7;
+  assert_eq!(vec[0], 7);
+
+  vec.extend([1, 2, 3]);
+
+  for x in &vec {
+      println!("{x}");
+  }
+  assert_eq!(vec, [7, 1, 2, 3]);
+#+END_SRC
+
+#+RESULTS:
+: 7
+: 1
+: 2
+: 3
+
+** ~VecDeque<T>~
+1. 双向队列 [[https://doc.rust-lang.org/std/collections/struct.VecDeque.html][link]]
+2. 双端队列使用可扩张的 环形缓冲器 实现
+
+** ~LinkedList<T>~
+1. 双向链表 [[https://doc.rust-lang.org/std/collections/struct.LinkedList.html][link]]
+
+** ~HashMap<K,V>~ / ~BTreeMap<K,V>~
+1. 哈希表 [[https://doc.rust-lang.org/std/collections/struct.HashMap.html][link]]
+2. B 树表，其排列的 key 是有序的
+** ~BinaryHeap<T>~
+1. 优先队列 [[https://doc.rust-lang.org/std/collections/struct.BinaryHeap.html][link]]
+
+* 迭代器
