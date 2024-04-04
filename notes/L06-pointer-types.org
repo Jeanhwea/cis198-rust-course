@@ -98,24 +98,26 @@
 2. 使用 ~.clone()~ 获取只读引用
    #+BEGIN_SRC rust :exports both
      use std::rc::Rc;
-     let v1 = Box::new(123);
-     println!("v1 = {:p}", v1);
-     println!("v1 = {:p}", v1.clone());
 
-     let v2 = Rc::new(222);
-     println!("v2 = {:p}", v2);
-     println!("v2 = {:p}", v2.clone());
-     println!("v2 = {:p}", v2.clone());
+     let v1 = Box::new(123);
+     println!("Box v1 = {:p}", v1);
+     println!("Box v1.clone = {:p}", v1.clone());
+     println!("Box v1.clone = {:p}", v1.clone());
+
+     let v2 = Rc::new(123);
+     println!("Rc  v2 = {:p}", v2);
+     println!("Rc  v2.clone = {:p}", v2.clone());
+     println!("Rc  v2.clone = {:p}", v2.clone());
    #+END_SRC
 
    #+RESULTS:
-   : v1 = 0x6000004c4040
-   : v1 = 0x6000004c4050
-   : v2 = 0x6000006c11b0
-   : v2 = 0x6000006c11b0
-   : v2 = 0x6000006c11b0
-
-3. 优点是可以放到多处
+   : Box v1 = 0x600002f20000
+   : Box v1.clone = 0x600002f2c050
+   : Box v1.clone = 0x600002f2c050
+   : Rc  v2 = 0x600002d28bb0
+   : Rc  v2.clone = 0x600002d28bb0
+   : Rc  v2.clone = 0x600002d28bb0
+3. 优点是可以放到多处，可以共享所有权
    #+BEGIN_SRC rust :exports both
      use std::rc::Rc;
 
@@ -131,7 +133,8 @@
 
      let v1 = Box::new(123);
      let f1 = Foo { v: v1};
-     let f2 = Foo { v: v1.clone() };
+     // 没有所有权，会报错
+     // let f2 = Foo { v: v1 };
 
      let v2 = Rc::new(222);
      let b1 = Bar { v: v2.clone() };
@@ -140,3 +143,16 @@
 
    #+RESULTS:
    : error: Could not compile `cargoXIpimx`.
+
+4. 当 referenced count == 1 时可以修改
+   #+BEGIN_SRC rust :exports both
+     let mut v2 =  Rc::new(123);
+     let r1 = Rc::get_mut(&mut v2);
+     println!("r1 = {:?}", r1);
+   #+END_SRC
+
+* 循环引用 => Weak<T>
+1. 弱引用 Weak
+2. referenced counter
+   - strong referenced counter
+   - weak referenced counter
