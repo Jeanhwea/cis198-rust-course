@@ -272,7 +272,109 @@ anyhow 库做错误处理
 ** ~HashMap<K,V>~ / ~BTreeMap<K,V>~
 1. 哈希表 [[https://doc.rust-lang.org/std/collections/struct.HashMap.html][link]]
 2. B 树表，其排列的 key 是有序的
+
+** ~HashSet<K,V>~ / ~BTreeSet<K,V>~
+1. 哈希集合
+2. B 树集合
+
 ** ~BinaryHeap<T>~
 1. 优先队列 [[https://doc.rust-lang.org/std/collections/struct.BinaryHeap.html][link]]
 
 * 迭代器
+Iterator | [[https://doc.rust-lang.org/std/iter/trait.Iterator.html][link]]
+
+* 函数式
+** collect
+- ~::<>~
+#+BEGIN_SRC rust :exports both
+  use std::collections::VecDeque;
+
+  let a = [1, 2, 3];
+  // let ans: Vec<i32> = a.iter().map(|&x| x * 2).collect();
+  // let ans = a.iter().map(|&x| x * 2).collect::<Vec<i32>>();
+  let ans: VecDeque<i32> = a.iter().map(|&x| x * 2).collect();
+  println!("ans = {:?}", ans);
+#+END_SRC
+
+#+RESULTS:
+: ans = [2, 4, 6]
+
+** fold
+- 折叠一个迭代器
+#+BEGIN_SRC rust :exports both
+  let nums = vec![1, 2, 3, 4, 5];
+  let sum = nums.iter().fold(0, |acc, &x| acc + x);
+  println!("sum = {sum}");
+#+END_SRC
+
+#+RESULTS:
+: sum = 15
+
+** filter
+- 过滤一下集合
+- predicate（谓词）
+  + 闭包
+  + 返回值必须是布尔型 : true/false
+#+BEGIN_SRC rust :exports both
+  let nums = vec![1, 2, 3, 4, 5];
+  let ans: Vec<&i32> = nums.iter().filter(|&x| *x % 2 == 1).collect();
+  println!("{ans:?}");
+#+END_SRC
+
+#+RESULTS:
+: [1, 3, 5]
+
+** find & position
+#+BEGIN_SRC rust :exports both
+  let nums = vec![9, 9, 8, 1, 2, 3, 4, 5];
+  println!("{:?}", nums.iter().find(|&x| *x==3));
+  println!("{:?}", nums.iter().find(|&x| *x==13));
+  println!("{:?}", nums.iter().position(|&x| x==1));
+  println!("{:?}", nums.iter().position(|&x| x==11));
+#+END_SRC
+
+#+RESULTS:
+: Some(3)
+: None
+: Some(3)
+: None
+
+** skip
+- 跳过 n 个迭代元素
+#+BEGIN_SRC rust :exports both
+  let nums = vec![9, 9, 8, 1, 2, 3, 4, 5];
+  println!("{:?}", nums.iter().skip(9).position(|&x| x==9));
+#+END_SRC
+
+#+RESULTS:
+: None
+
+** zip
+- 打包两个迭代器
+- 最终长度取短的
+#+BEGIN_SRC rust :exports both
+  let a1 = [1, 2, 3];
+  let a2 = [4, 5, 6];
+
+  let mut iter = a1.iter().zip(a2.iter());
+  println!("{:?}", iter.collect::<Vec<_>>());
+#+END_SRC
+
+#+RESULTS:
+: [(1, 4), (2, 5), (3, 6)]
+
+** enumerate
+#+BEGIN_SRC rust :exports both
+  let num = vec![8, 3, 23];
+  // for (i, v) in enumerate!(num) {
+  //     println!("{i} -> {v}");
+  // }
+  for (i, v) in num.iter().enumerate() {
+      println!("{i} -> {v}");
+  }
+#+END_SRC
+
+#+RESULTS:
+: 0 -> 8
+: 1 -> 3
+: 2 -> 23
