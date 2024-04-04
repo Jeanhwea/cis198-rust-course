@@ -5,6 +5,19 @@
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
 
+* 指针
+1. 引用
+2. 解引用
+#+BEGIN_SRC C :includes '(<stdio.h>) :results output :exports both
+  int val = 123;
+  int *p = &val;
+  printf("p  = %p\n", p);
+  printf("*p = %d\n", *p);
+#+END_SRC
+
+#+RESULTS:
+: p  = 0x7ff7be0b22c4
+: *p = 123
 
 * ~Box<T>~
 1. 在堆上分配内存 | [[https://doc.rust-lang.org/std/boxed/struct.Box.html][link]]
