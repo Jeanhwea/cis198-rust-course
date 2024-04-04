@@ -5,30 +5,93 @@
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
 
-* 指针
-1. 引用
-2. 解引用
+* 指针：reference & deference
+1. 引用 ~&~ reference
+2. 解引用 ~*~ dereference
 #+BEGIN_SRC C :includes '(<stdio.h>) :results output :exports both
-  int val = 123;
+  int val = 1234;
   int *p = &val;
   printf("p  = %p\n", p);
   printf("*p = %d\n", *p);
+  // val = 666;
+  // *p = 888; // 可变性
+  // printf("*p = %d\n", *p);
 #+END_SRC
 
 #+RESULTS:
-: p  = 0x7ff7bd5b12c4
-: *p = 123
-: *p = 222
+: p  = 0x7ff7b48f22c4
+: *p = 1234
+
+1. ~&T~ 引用
+2. ~&mut T~ 可变引用
+#+BEGIN_SRC rust :exports both
+  let mut val = 123;
+  {
+      let mut p = &mut val;
+      println!("{:p}", p);
+      println!("{}", p);
+      println!("{}", *p);
+      ,*p = 222;
+  }
+  val = 444;
+  println!("{}", val);
+#+END_SRC
+
+#+RESULTS:
+: 0x7ff7b778abd4
+: 123
+: 123
+: 444
 
 * ~Box<T>~
-1. 在堆上分配内存 | [[https://doc.rust-lang.org/std/boxed/struct.Box.html][link]]
-2. ~Box<T>~ 是 Rust 中最常见的智能指针
-3. 它是简单的封装，除了将值存储在堆上外，并没有其它性能上的损耗
-4. 使用场景：
+1. 智能指针 smart pointer
+2. 在堆上分配内存 | [[https://doc.rust-lang.org/std/boxed/struct.Box.html][link]]
+   - ~malloc(...)~
+3. ~Box<T>~ 是 Rust 中最常见的智能指针
+   - &v
+   - *v
+4. 它是简单的封装，除了将值存储在堆上外，并没有其它性能上的损耗
+5. 使用场景：
    - 特意的将数据分配在堆上
    - 数据较大时，又不想在转移所有权时进行数据拷贝
    - 类型的大小在编译期无法确定，但是我们又需要固定大小的类型时
+     #+BEGIN_SRC rust :exports both
+       enum List {
+           Nil,
+           Cons(i32, Box<List>),
+       }
+     #+END_SRC
    - Trait Object，用于说明对象实现了一个特征，而不是某个特定的类型
+     #+BEGIN_SRC rust :exports both
+       fn make_clousre() -> Box<dyn Fn(i32) -> i32> {
+
+       }
+     #+END_SRC
+
+ 简单实现 MyBox
+ #+BEGIN_SRC rust :exports both
+   use std::ops::Deref;
+
+   #[allow(unused_variables)]
+   #[allow(dead_code)]
+
+   struct MyBox(i32);
+
+   impl Deref for MyBox {
+       type Target = i32;
+
+       fn deref(&self) -> &i32 {
+           println!("deref in MyBox");
+           &self.0
+       }
+   }
+
+   impl Drop for MyBox {
+       fn drop(&mut self) {
+           println!("drop in MyBox");
+       }
+   }
+ #+END_SRC
 
 * ~Rc<T>~
 1. 引用计数
@@ -36,14 +99,22 @@
    #+BEGIN_SRC rust :exports both
      use std::rc::Rc;
      let v1 = Box::new(123);
-     println!("{:p}", v1);
-     println!("{:p}", v1.clone());
+     println!("v1 = {:p}", v1);
+     println!("v1 = {:p}", v1.clone());
 
      let v2 = Rc::new(222);
-     println!("{:p}", v2);
-     println!("{:p}", v2.clone());
-     println!("{:p}", v2.clone());
+     println!("v2 = {:p}", v2);
+     println!("v2 = {:p}", v2.clone());
+     println!("v2 = {:p}", v2.clone());
    #+END_SRC
+
+   #+RESULTS:
+   : v1 = 0x6000004c4040
+   : v1 = 0x6000004c4050
+   : v2 = 0x6000006c11b0
+   : v2 = 0x6000006c11b0
+   : v2 = 0x6000006c11b0
+
 3. 优点是可以放到多处
    #+BEGIN_SRC rust :exports both
      use std::rc::Rc;
@@ -59,8 +130,8 @@
      }
 
      let v1 = Box::new(123);
-     let f1 = Foo { v: v1 };
-     // let f2 = Foo { v: a };
+     let f1 = Foo { v: v1};
+     let f2 = Foo { v: v1.clone() };
 
      let v2 = Rc::new(222);
      let b1 = Bar { v: v2.clone() };
