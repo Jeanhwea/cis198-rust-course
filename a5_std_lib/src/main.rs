@@ -1,5 +1,3 @@
-use std::borrow::BorrowMut;
-
 #[allow(unused_variables)]
 #[allow(dead_code)]
 
@@ -8,7 +6,7 @@ fn main() {
     println!("v1 = {}", v1);
     *v1 = 333;
 
-    let v2 = v1.borrow_mut();
+    let v2 = &mut *v1;
     *v2 = 444;
 
     println!("v1 = {}", v1);

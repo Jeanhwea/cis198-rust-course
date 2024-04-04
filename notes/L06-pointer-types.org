@@ -94,7 +94,7 @@
  #+END_SRC
 
 * ~Rc<T>~
-1. 引用计数
+1. 引用计数 | [[https://doc.rust-lang.org/std/rc/struct.Rc.html][link]]
 2. 使用 ~.clone()~ 获取只读引用
    #+BEGIN_SRC rust :exports both
      use std::rc::Rc;
