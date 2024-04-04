@@ -16,8 +16,9 @@
 #+END_SRC
 
 #+RESULTS:
-: p  = 0x7ff7be0b22c4
+: p  = 0x7ff7bd5b12c4
 : *p = 123
+: *p = 222
 
 * ~Box<T>~
 1. 在堆上分配内存 | [[https://doc.rust-lang.org/std/boxed/struct.Box.html][link]]
