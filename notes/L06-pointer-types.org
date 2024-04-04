@@ -1,6 +1,17 @@
-#+TITLE: CIS198 Lecture 6: 标准库中的指针类型
+#+TITLE: CIS198 Lecture 6: 指针类型
 #+AUTHOR: Jinghui Hu
 #+EMAIL: hujinghui@buaa.edu.cn
 #+DATE: <2024-04-04 Thu>
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
+
+
+* ~Box<T>~
+1. 在堆上分配内存 | [[https://doc.rust-lang.org/std/boxed/struct.Box.html][link]]
+2. ~Box<T>~ 是 Rust 中最常见的智能指针
+3. 它是简单的封装，除了将值存储在堆上外，并没有其它性能上的损耗
+4. 使用场景：
+   - 特意的将数据分配在堆上
+   - 数据较大时，又不想在转移所有权时进行数据拷贝
+   - 类型的大小在编译期无法确定，但是我们又需要固定大小的类型时
+   - Trait Object，用于说明对象实现了一个特征，而不是某个特定的类型
