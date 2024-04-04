@@ -1,0 +1,6 @@
+#+TITLE: CIS198 Lecture 6: 标准库中的指针类型
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-04-04 Thu>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil
