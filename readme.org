@@ -18,27 +18,27 @@
 
 * 课程大纲
 
-| Timeline         | Lecture | Topic                     | Note             |
-|------------------+---------+---------------------------+------------------|
-| <2024-03-23 Sat> | L00     | Course Introduction       | [[file:notes/l00-warmup.org][预热]]             |
-| <2024-03-26 Tue> | L01     | Ownership & Lifetimes     | [[file:notes/L01-ownership-lifetime.org][所有权和生命周期]] |
-| <2024-03-29 Fri> | L02     | Structured Data           | [[file:notes/L02-structured-data.org][结构化的数据]]     |
-| <2024-03-31 Sun> | L03     | Generics & Traits         | [[file:notes/L03-generics-traits.org][泛型和 Trait]]     |
-| <2024-04-02 Tue> | L04     | Closures                  | [[file:notes/L04-closures.org][闭包]]             |
-| <2024-04-04 Thu> | L05     | Standard Library          | [[file:notes/L05-standard-library.org][标准库]]           |
-| <2024-04-06 Sat> | L06     | std_ Pointer Types        | [[file:notes/L06-pointer-types.org][指针类型]]         |
-|                  | L07     | Misc_ Syntax, Crates, std |                  |
-|                  | L08     | IO                        |                  |
-|                  | L09     | Networking & Web          |                  |
-|                  | L10     | Concurrency I             |                  |
-|                  | L11     | Concurrency II            |                  |
-|                  | L12     | Unsafe Rust               |                  |
-|                  | L13     | Macros!                   |                  |
-|                  | L14     | Community & Contributing  |                  |
-|                  | L15     | Nightly Rust              |                  |
-|                  | L16     | Subtyping & Variance      |                  |
-|                  | L17     | Borrowing & Owning        |                  |
-|                  | L18     | Cross-Compilation         |                  |
+| Timeline         | Lecture | Topic                     | Note               |
+|------------------+---------+---------------------------+--------------------|
+| <2024-03-23 Sat> | L00     | Course Introduction       | [[file:notes/l00-warmup.org][预热]]               |
+| <2024-03-26 Tue> | L01     | Ownership & Lifetimes     | [[file:notes/L01-ownership-lifetime.org][所有权和生命周期]]   |
+| <2024-03-29 Fri> | L02     | Structured Data           | [[file:notes/L02-structured-data.org][结构化的数据]]       |
+| <2024-03-31 Sun> | L03     | Generics & Traits         | [[file:notes/L03-generics-traits.org][泛型和 Trait]]       |
+| <2024-04-02 Tue> | L04     | Closures                  | [[file:notes/L04-closures.org][闭包]]               |
+| <2024-04-04 Thu> | L05     | Standard Library          | [[file:notes/L05-standard-library.org][标准库]]             |
+| <2024-04-06 Sat> | L06     | std_ Pointer Types        | [[file:notes/L06-pointer-types.org][指针类型]]           |
+|                  | L07     | Misc_ Syntax, Crates, std | [[file:notes/L07-misc-syntax-crates.org][杂项、语法和 crate]] |
+|                  | L08     | IO                        |                    |
+|                  | L09     | Networking & Web          |                    |
+|                  | L10     | Concurrency I             |                    |
+|                  | L11     | Concurrency II            |                    |
+|                  | L12     | Unsafe Rust               |                    |
+|                  | L13     | Macros!                   |                    |
+|                  | L14     | Community & Contributing  |                    |
+|                  | L15     | Nightly Rust              |                    |
+|                  | L16     | Subtyping & Variance      |                    |
+|                  | L17     | Borrowing & Owning        |                    |
+|                  | L18     | Cross-Compilation         |                    |
 
 * 参考材料
 1. CIS198: Rust Programming | 2016 Spring | [[http://cis198-2016s.github.io/schedule/][Schedule]]
