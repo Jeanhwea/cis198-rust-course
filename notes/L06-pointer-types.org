@@ -14,13 +14,14 @@
   printf("p  = %p\n", p);
   printf("*p = %d\n", *p);
   // val = 666;
-  // *p = 888; // 可变性
-  // printf("*p = %d\n", *p);
+  *p = 888; // 可变性
+  printf("*p = %d\n", *p);
 #+END_SRC
 
 #+RESULTS:
-: p  = 0x7ff7b48f22c4
+: p  = 0x7ff7ba3052c4
 : *p = 1234
+: *p = 888
 
 1. ~&T~ 引用
 2. ~&mut T~ 可变引用
@@ -156,3 +157,77 @@
 2. referenced counter
    - strong referenced counter
    - weak referenced counter
+
+* 内部可变性
+** 介绍
+#+BEGIN_SRC rust :exports both
+  use std::cell::{Cell, RefCell};
+
+  #[allow(unused_variables)]
+  #[allow(dead_code)]
+  #[derive(Debug)]
+  struct Foo {
+      x: Cell<i32>,
+      y: RefCell<u32>,
+  }
+
+  fn main() {
+      let foo1 = Foo {
+          x: Cell::new(123),
+          y: RefCell::new(345),
+      };
+      println!("foo1 = {:#?}", foo1);
+
+      foo1.x.set(666);
+      println!("foo1 = {:#?}", foo1);
+
+      println!("foo1.x = {:#?}", foo1.x.get());
+  }
+#+END_SRC
+** Cell<T>
+1. 内部可变性
+2. get() 获取值
+3. set() 设置值
+4. T 只能设置 Copy 类型
+** RefCell<T>
+1. 运行时动态检测，可能会造成 panic
+2. T 可以是任何类型
+3. 通过 borrow() / borrow_new() 进行操作
+#+BEGIN_SRC rust :exports both
+  let v1 = RefCell::new(vec![1]);
+
+  {
+      let mut inner = v1.borrow_mut();
+      inner.push(2);
+  }
+  println!("v1 = {:?}", v1.borrow());
+#+END_SRC
+
+#+BEGIN_SRC rust :exports both
+  let v1 = RefCell::new(vec![1]);
+
+  let mut inner = v1.borrow_mut();
+  inner.push(2);
+
+  println!("v1 = {:?}", v1.borrow());
+
+  let mut inner2 = v1.borrow();
+#+END_SRC
+
+上述代码会 panic
+#+BEGIN_EXAMPLE
+  thread 'main' panicked at src/main.rs:17:30:
+  already mutably borrowed: BorrowError
+#+END_EXAMPLE
+
+#+BEGIN_SRC rust :exports both
+  struct Foo {
+      v: Rc<RefCell<Vec<i32>>>,
+      u: Rc<Vec<i32>>,
+  }
+#+END_SRC
+
+* ~* const T~ 和 ~*mut T~
+1. 和 c 语言类似的裸指针
+2. 很少使用，基本上出现场景就是标准库
+3. unsafe
