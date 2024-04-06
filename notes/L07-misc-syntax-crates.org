@@ -7,33 +7,26 @@
 
 
 * ~const~ vs ~static~
-** 常量 (const)
-1. 必须指定变量类型
+** const 常量
+1. 必须指定常量类型
 2. 编译器会尽可能将其内联到代码中
-#+BEGIN_SRC rust :exports both
-  const PI: f32 = 3.14259;
-#+END_SRC
+   #+BEGIN_SRC rust :exports both
+     const PI: f32 = 3.14259;
+   #+END_SRC
 
-** 全局变量 (static)
-1. 全局变量和常量类似，但是一个重要的区别就是，全局变量不会被内联
-2. 在整个程序中，全局变量只有一个实例，也就是说所有的引用都会指向一个相同的地址
-3. 和常量不同，全局变量可以定义为可变的(mut)
-#+BEGIN_SRC rust :exports both
-  static PI: f32 = 3.14259;
-  let life_of_pi: &'static f32 = &PI;
-  println!("{:?}", life_of_pi);
-#+END_SRC
-
-#+RESULTS:
-: 3.14259
-
-#+BEGIN_SRC rust :exports both
-  static mut PI: f32 = 3.14259;
-  unsafe {
-      PI = 3.1;
-      println!("{:?}", PI);
-  }
-#+END_SRC
-
-#+RESULTS:
-: 3.1
+** static 变量
+1. static 变量和常量类似，但是一个重要的区别就是，static 变量不会被内联
+2. 在整个程序中，static 变量只有一个实例，也就是说所有的引用都会指向一个相同的地址
+   #+BEGIN_SRC rust :exports both
+     static PI: f32 = 3.14259;
+     let life_of_pi: &'static f32 = &PI;
+     println!("{:?}", life_of_pi);
+   #+END_SRC
+3. 和常量不同，static 变量可以定义为可变的(mut)
+   #+BEGIN_SRC rust :exports both
+     static mut PI: f32 = 3.14259;
+     unsafe {
+         PI = 3.1;
+         println!("{:?}", PI);
+     }
+   #+END_SRC
