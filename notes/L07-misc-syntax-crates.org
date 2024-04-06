@@ -9,24 +9,39 @@
 * ~const~ vs ~static~
 ** const 常量
 1. 必须指定常量类型
-2. 编译器会尽可能将其内联到代码中
    #+BEGIN_SRC rust :exports both
-     const PI: f32 = 3.14259;
+     const PI: f32 = 3.1415926;
+   #+END_SRC
+2. 编译器会尽可能将其内联(inline)到代码中
+   #+BEGIN_SRC rust :exports both
+     const PI: f32 = 3.1415926;
+
+     let x = PI + PI;
+     let x = 3.1415926 + 3.1415926;
    #+END_SRC
 
 ** static 变量
 1. static 变量和常量类似，但是一个重要的区别就是，static 变量不会被内联
 2. 在整个程序中，static 变量只有一个实例，也就是说所有的引用都会指向一个相同的地址
    #+BEGIN_SRC rust :exports both
-     static PI: f32 = 3.14259;
+     static PI: f32 = 3.14159;
      let life_of_pi: &'static f32 = &PI;
      println!("{:?}", life_of_pi);
    #+END_SRC
+
+   #+RESULTS:
+   : 3.14159
+
 3. 和常量不同，static 变量可以定义为可变的(mut)
    #+BEGIN_SRC rust :exports both
-     static mut PI: f32 = 3.14259;
+     static mut PI: f32 = 3.14;
      unsafe {
-         PI = 3.1;
+         PI = 3.1415926;
          println!("{:?}", PI);
      }
    #+END_SRC
+
+   #+RESULTS:
+   : 3.1415925
+
+* module vs crate
