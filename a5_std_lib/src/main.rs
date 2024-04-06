@@ -17,4 +17,5 @@ fn main() {
     println!("v1 = {:?}", v1.borrow());
 
     let mut inner2 = v1.borrow();
+
 }
