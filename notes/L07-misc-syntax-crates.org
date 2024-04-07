@@ -45,3 +45,23 @@
    : 3.1415925
 
 * module vs crate
+
+* attribute
+1. ~#[test]~ 标记函数为测试用例
+2. 有两种标记风格
+   - ~#[test]~ 标记下一个代码块 block
+   - ~#![test]~ 标记包围的 block
+#+BEGIN_SRC rust :exports both
+  #[test]
+  fn midterm1() {
+      // ...
+  }
+
+  fn midterm2() {
+      #![test]
+      // ...
+  }
+#+END_SRC
+
+* style
+1. 代码风格 [[https://github.com/rust-lang/rust/tree/master/src/doc/style-guide][style-guide]]
