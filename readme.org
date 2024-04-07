@@ -44,7 +44,8 @@
 1. CIS198: Rust Programming | 2016 Spring | [[http://cis198-2016s.github.io/schedule/][Schedule]]
 2. CIS1905: 2024 Spring | [[https://www.cis1905.org/schedule.html][cis1905]]
 3. The Rust Programming Language | [[https://doc.rust-lang.org/book/][Book]]
-4. 代码仓库 [[https://github.com/Jeanhwea/cis198-rust-course.git][github]]
+4. 示例代码仓库 | [[https://github.com/Jeanhwea/cis198-rust-course.git][github]]
+5. 标准库文档 | [[https://doc.rust-lang.org/std/index.html][std]]
 
 * 捐赠列表
 #+BEGIN_QUOTE
