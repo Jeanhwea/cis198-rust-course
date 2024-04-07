@@ -47,8 +47,12 @@
 * module vs crate
 - module 模块
 - crate 包/编译单元
+  + bin 命令行
+  + lib 库
 #+BEGIN_SRC sh
   cargo new app
+  cargo new --bin app
+
   cargo new --lib mylib
 #+END_SRC
 
