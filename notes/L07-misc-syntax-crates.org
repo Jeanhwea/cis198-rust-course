@@ -45,6 +45,10 @@
    : 3.1415925
 
 * module vs crate
+#+BEGIN_SRC sh
+  cargo new app
+  cargo new --lib mylib
+#+END_SRC
 
 * attribute
 1. ~#[test]~ 标记函数为测试用例
