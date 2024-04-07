@@ -45,6 +45,8 @@
    : 3.1415925
 
 * module vs crate
+- module 模块
+- crate 包/编译单元
 #+BEGIN_SRC sh
   cargo new app
   cargo new --lib mylib
