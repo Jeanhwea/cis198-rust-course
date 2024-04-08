@@ -8,6 +8,10 @@
 
 * 网络
 ** socket
+1. 是网络资源的抽象
+2. <IP, PORT>
+
+** UDP
 UdpSocket | [[https://doc.rust-lang.org/std/net/struct.UdpSocket.html][link]]
 
 udp server
