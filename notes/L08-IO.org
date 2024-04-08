@@ -27,17 +27,18 @@
 
       // read up to 10 bytes
       f.read(&mut buffer)?;
-      println!("buffer = {buffer:?}");
+      println!("buffer1 = {buffer:?}");
 
-      // let s1: String = String::from_utf8(buffer.to_vec()).unwrap();
-      // println!("buffer = {s1:?}");
+      let s1: String = String::from_utf8(buffer.to_vec()).unwrap();
+      println!("buffer2 = {s1:?}");
 
       Ok(())
   }
 #+END_SRC
 
 #+RESULTS:
-: buffer = [97, 97, 97, 32, 98, 98, 98, 32, 99, 99]
+: buffer1 = [97, 97, 97, 32, 98, 98, 98, 32, 99, 99]
+: buffer2 = "aaa bbb cc"
 
 #+BEGIN_SRC rust :exports both
   use std::io;
@@ -46,13 +47,25 @@
 
   fn main() -> io::Result<()> {
       let mut buffer = File::create("/tmp/foo.out")?;
-      write!(buffer, "Hello {}!", "Tom").unwrap();
+      write!(buffer, "Hello {}!", "Jack").unwrap();
       Ok(())
   }
 #+END_SRC
 
+#+RESULTS:
+
+* I/O 缓存
+1. BufReader
+2. BufWriter
+
 * Json
 1. Json 工具 | [[https://crates.io/crates/serde][serde]]
+
+#+BEGIN_SRC rust :exports both
+  cargo add serde --features derive
+  cargo add serde_json
+  cargo add serde_derive
+#+END_SRC
 
 #+BEGIN_SRC rust :exports both
   use serde::{Deserialize, Serialize};
