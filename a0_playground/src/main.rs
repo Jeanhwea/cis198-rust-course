@@ -12,7 +12,7 @@ fn main() -> std::io::Result<()> {
         // 读取输入数据
         let mut input = String::new();
         io::stdin().read_line(&mut input)?;
-        socket.send(input.as_bytes())?;
+        socket.send(input.trim().as_bytes())?;
 
         // 发送数据，并接收结果
         let mut buffer = [0u8; 1500];
