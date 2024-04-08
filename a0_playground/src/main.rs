@@ -1,18 +1,27 @@
 use std::net::UdpSocket;
+use std::{io, str};
 
 fn main() -> std::io::Result<()> {
-    {
-        let socket = UdpSocket::bind("127.0.0.1:34254")?;
+    // 绑定端口
+    let socket = UdpSocket::bind("127.0.0.1:11111")?;
 
-        // Receives a single datagram message on the socket. If `buf` is too small to hold
-        // the message, it will be cut off.
-        let mut buf = [0; 10];
-        let (amt, src) = socket.recv_from(&mut buf)?;
+    // 建立链接
+    socket.connect("127.0.0.1:12345")?;
 
-        // Redeclare `buf` as slice of the received data and send reverse data back to origin.
-        let buf = &mut buf[..amt];
-        buf.reverse();
-        socket.send_to(buf, &src)?;
-    } // the socket is closed here
-    Ok(())
+    loop {
+        // 读取输入数据
+        let mut input = String::new();
+        io::stdin().read_line(&mut input)?;
+        socket.send(input.as_bytes())?;
+
+        // 发送数据，并接收结果
+        let mut buffer = [0u8; 1500];
+        socket.recv_from(&mut buffer)?;
+
+        // 打印输出结果
+        println!(
+            "RECV: {}",
+            str::from_utf8(&buffer).expect("failed to write")
+        );
+    }
 }
