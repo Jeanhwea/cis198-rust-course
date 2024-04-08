@@ -7,6 +7,7 @@
 
 
 * 读写的标准 Traits
+** trait Read/Write
 1. ~Read~ trait | [[https://doc.rust-lang.org/std/io/trait.Read.html][link]]
 2. ~Write~ trait | [[https://doc.rust-lang.org/std/io/trait.Write.html][link]]
 3. 返回值为 ~std::io::Result~ 而不是 ~std::Result~
@@ -14,6 +15,7 @@
      type Result<T> = Result<T, std::io::Error>
    #+END_SRC
 
+** 读写示例
 #+BEGIN_SRC rust :exports both
   use std::io;
   use std::io::prelude::*;
@@ -27,9 +29,56 @@
       f.read(&mut buffer)?;
       println!("buffer = {buffer:?}");
 
+      // let s1: String = String::from_utf8(buffer.to_vec()).unwrap();
+      // println!("buffer = {s1:?}");
+
       Ok(())
   }
 #+END_SRC
 
 #+RESULTS:
 : buffer = [97, 97, 97, 32, 98, 98, 98, 32, 99, 99]
+
+#+BEGIN_SRC rust :exports both
+  use std::io;
+  use std::io::prelude::*;
+  use std::fs::File;
+
+  fn main() -> io::Result<()> {
+      let mut buffer = File::create("/tmp/foo.out")?;
+      write!(buffer, "Hello {}!", "Tom").unwrap();
+      Ok(())
+  }
+#+END_SRC
+
+* Json
+1. Json 工具 | [[https://crates.io/crates/serde][serde]]
+
+#+BEGIN_SRC rust :exports both
+  use serde::{Deserialize, Serialize};
+
+  #[derive(Serialize, Deserialize, Debug)]
+  struct Point {
+      x: i32,
+      y: i32,
+  }
+
+  fn main() {
+      let point = Point { x: 1, y: 2 };
+
+      // Convert the Point to a JSON string.
+      let serialized = serde_json::to_string(&point).unwrap();
+
+      // Prints serialized = {"x":1,"y":2}
+      println!("serialized = {}", serialized);
+
+      // Convert the JSON string back to a Point.
+      let deserialized: Point = serde_json::from_str(&serialized).unwrap();
+
+      // Prints deserialized = Point { x: 1, y: 2 }
+      println!("deserialized = {:?}", deserialized);
+  }
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargow9PkJw`.
