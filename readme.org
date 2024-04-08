@@ -28,7 +28,7 @@
 | <2024-04-04 Thu> | L05     | Standard Library          | [[file:notes/L05-standard-library.org][标准库]]             |
 | <2024-04-06 Sat> | L06     | std_ Pointer Types        | [[file:notes/L06-pointer-types.org][指针类型]]           |
 | <2024-04-07 Sun> | L07     | Misc_ Syntax, Crates, std | [[file:notes/L07-misc-syntax-crates.org][杂项、语法和 crate]] |
-|                  | L08     | IO                        | [[file:notes/L08-IO.org][I/O]]                |
+| <2024-04-08 Mon> | L08     | IO                        | [[file:notes/L08-IO.org][I/O]]                |
 |                  | L09     | Networking & Web          |                    |
 |                  | L10     | Concurrency I             |                    |
 |                  | L11     | Concurrency II            |                    |
