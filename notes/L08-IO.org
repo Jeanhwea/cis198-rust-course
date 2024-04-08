@@ -1,0 +1,35 @@
+#+TITLE: CIS198 Lecture 8: I/O
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-04-08 Mon>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil
+
+
+* 读写的标准 Traits
+1. ~Read~ trait | [[https://doc.rust-lang.org/std/io/trait.Read.html][link]]
+2. ~Write~ trait | [[https://doc.rust-lang.org/std/io/trait.Write.html][link]]
+3. 返回值为 ~std::io::Result~ 而不是 ~std::Result~
+   #+BEGIN_SRC rust :exports both
+     type Result<T> = Result<T, std::io::Error>
+   #+END_SRC
+
+#+BEGIN_SRC rust :exports both
+  use std::io;
+  use std::io::prelude::*;
+  use std::fs::File;
+
+  fn main() -> io::Result<()> {
+      let mut f = File::open("/tmp/foo.txt")?;
+      let mut buffer = [0; 10];
+
+      // read up to 10 bytes
+      f.read(&mut buffer)?;
+      println!("buffer = {buffer:?}");
+
+      Ok(())
+  }
+#+END_SRC
+
+#+RESULTS:
+: buffer = [97, 97, 97, 32, 98, 98, 98, 32, 99, 99]
