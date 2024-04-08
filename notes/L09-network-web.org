@@ -1,4 +1,4 @@
-#+TITLE: CIS198 Lecture 9: Networking & Web
+#+TITLE: CIS198 Lecture 9: 网络编程
 #+AUTHOR: Jinghui Hu
 #+EMAIL: hujinghui@buaa.edu.cn
 #+DATE: <2024-04-08 Mon>
