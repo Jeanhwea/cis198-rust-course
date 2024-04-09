@@ -29,7 +29,7 @@
 | <2024-04-07 Sun> | L07     | Misc_ Syntax, Crates, std | [[file:notes/L07-misc-syntax-crates.org][杂项、语法和 crate]] |
 | <2024-04-08 Mon> | L08     | IO                        | [[file:notes/L08-IO.org][I/O]]                |
 | <2024-04-08 Mon> | L09     | Networking & Web          | [[file:notes/L09-network-web.org][网络编程]]           |
-|                  | L10     | Concurrency I             |                    |
+| <2024-04-09 Tue> | L10     | Concurrency I             | [[file:notes/L10-concurrency-1.org][并发 I]]             |
 |                  | L11     | Concurrency II            |                    |
 |                  | L12     | Unsafe Rust               |                    |
 |                  | L13     | Macros!                   |                    |
