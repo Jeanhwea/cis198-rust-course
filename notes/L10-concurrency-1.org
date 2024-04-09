@@ -12,6 +12,8 @@
 
 * 线程
 ** 创建线程
+1. 线程 [[https://doc.rust-lang.org/std/thread/index.html][std::thread]]
+
 #+BEGIN_SRC rust :exports both
   use std::thread;
 
