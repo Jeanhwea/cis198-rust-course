@@ -1,27 +1,15 @@
-use std::net::UdpSocket;
-use std::{io, str};
+use std::thread;
 
-fn main() -> std::io::Result<()> {
-    // 绑定端口
-    let socket = UdpSocket::bind("127.0.0.1:11111")?;
+fn main() {
+    let handle = thread::spawn(|| {
+        thread::park();
+        println!("aaa");
+    });
+    println!("bbb");
 
-    // 建立链接
-    socket.connect("127.0.0.1:12345")?;
+    println!("curr = {:?}", thread::current());
 
-    loop {
-        // 读取输入数据
-        let mut input = String::new();
-        io::stdin().read_line(&mut input)?;
-        socket.send(input.trim().as_bytes())?;
+    handle.thread().unpark();
 
-        // 发送数据，并接收结果
-        let mut buffer = [0u8; 1500];
-        socket.recv_from(&mut buffer)?;
-
-        // 打印输出结果
-        println!(
-            "RECV: {}",
-            str::from_utf8(&buffer).expect("failed to write")
-        );
-    }
+    handle.join().unwrap();
 }

@@ -4,3 +4,46 @@
 #+DATE: <2024-04-09 Tue>
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
+
+* 并发
+1. 分时
+2. 竞争
+3. 哲学家问题
+
+* 线程
+** 创建线程
+#+BEGIN_SRC rust :exports both
+  use std::thread;
+
+  thread::spawn(|| {
+      println!("hello");
+  });
+#+END_SRC
+
+#+RESULTS:
+: hello
+
+** Join
+#+BEGIN_SRC rust :exports both
+  use std::thread;
+  let handle = thread::spawn(|| "hello");
+  println!("{:?}", handle.join());
+#+END_SRC
+
+#+RESULTS:
+: Ok("hello")
+
+** Thread
+#+BEGIN_SRC rust :exports both
+  let handle = thread::spawn(|| {
+      thread::park();
+      println!("aaa");
+  });
+  println!("bbb");
+
+  println!("curr = {:?}", thread::current());
+
+  handle.thread().unpark();
+
+  handle.join().unwrap();
+#+END_SRC
