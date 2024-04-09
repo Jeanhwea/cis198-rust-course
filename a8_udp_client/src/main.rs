@@ -12,9 +12,11 @@ fn main() -> std::io::Result<()> {
         // 读取输入数据，并调用 send 发送数据
         let mut input = String::new();
         io::stdin().read_line(&mut input)?;
+
+        // 发送数据
         socket.send(input.trim().as_bytes())?;
 
-        // 发送数据，并接收结果
+        // 接收结果
         let mut buf = [0u8; 1500];
         socket.recv_from(&mut buf)?;
 
