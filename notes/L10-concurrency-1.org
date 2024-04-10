@@ -76,7 +76,23 @@
 * ~Send~ & ~Sync~
 1. ~Send~ trait 允许安全地在线程间传递所有权。
    - 即可以跨线程移动数据
+   - 除了 ~Rc<T>~ 等极少数的类型，几乎所有的 Rust 类型都实现了 ~Send~
 2. ~Sync~ trait 允许安全地在线程间传递不可变借用。
    - 即可以跨线程共享数据
+   - 类型 ~Mutex<T>~ 是 Sync 的，可以被多个线程共享访问
+   - 类型 ~RefCell<T>~ 不满足 Sync 约束
+     #+BEGIN_SRC rust :exports both
+       use std::cell::RefCell;
+       use std::thread;
+
+       let a = RefCell::new(1);
+       thread::spawn(|| {
+           a.borrow_mut(); // error[E0277]: `RefCell<i32>` cannot be shared between threads safely
+       });
+     #+END_SRC
+
+     #+RESULTS:
+     : error: Could not compile `cargow9GET6`.
+
 3. 它们都是 marker trait，仅用于标记
    - [[https://doc.rust-lang.org/std/marker/trait.Send.html][Send]] | [[https://doc.rust-lang.org/std/marker/trait.Sync.html][Sync]]
