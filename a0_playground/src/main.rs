@@ -1,15 +1,12 @@
+use core::time;
 use std::thread;
 
 fn main() {
-    let handle = thread::spawn(|| {
-        thread::park();
-        println!("aaa");
-    });
-    println!("bbb");
-
-    println!("curr = {:?}", thread::current());
-
-    handle.thread().unpark();
-
-    handle.join().unwrap();
+    for i in 0..10 {
+        thread::spawn(move || {
+            println!("thr #{}", i);
+        });
+    }
+    let dur = time::Duration::from_millis(500);
+    thread::sleep(dur);
 }
