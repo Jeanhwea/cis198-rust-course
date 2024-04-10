@@ -39,18 +39,39 @@
 ** Thread
 #+BEGIN_SRC rust :exports both
   let handle = thread::spawn(|| {
+      println!("child thread = {:?}", thread::current());
       thread::park();
-      println!("aaa");
+      println!("Good morning");
   });
-  println!("bbb");
+  println!("parent thread = {:?}", thread::current());
 
-  println!("curr = {:?}", thread::current());
-
+  println!("Good night");
   handle.thread().unpark();
 
+  // join
   handle.join().unwrap();
 #+END_SRC
 
+** 多线程，主线程 sleep
+#+BEGIN_SRC rust :exports both
+  for _i in 0..10 {
+      thread::spawn(|| {
+          println!("aaa");
+      });
+  }
+
+  thread::sleep(Duration::from_millis(1000));
+#+END_SRC
+
+#+BEGIN_SRC rust :exports both
+  for _i in 0..10 {
+      thread::spawn(move || {
+          println!("aaa, i = {}", i);
+      });
+  }
+
+  thread::sleep(Duration::from_millis(1000));
+#+END_SRC
 * Send & Sync
 1. 实现了 Send 的类型，可以安全地在线程间传递所有权。
    - 也就是说，可以跨线程移动
