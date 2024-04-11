@@ -29,7 +29,7 @@
 | <2024-04-07 Sun> | L07     | Misc_ Syntax, Crates, std | [[https://www.bilibili.com/video/BV1xt421J7js/][p1]] / [[https://www.bilibili.com/video/BV181421m7YC/][p2]]           | [[file:notes/L07-misc-syntax-crates.org][杂项、语法和 crate]] |
 | <2024-04-08 Mon> | L08     | IO                        | [[https://www.bilibili.com/video/BV11J4m1V7R9/][p1]]                | [[file:notes/L08-IO.org][I/O]]                |
 | <2024-04-08 Mon> | L09     | Networking & Web          | [[https://www.bilibili.com/video/BV1G1421m7ZW/][p1]]                | [[file:notes/L09-network-web.org][网络编程]]           |
-| <2024-04-09 Tue> | L10     | Concurrency I             | [[https://www.bilibili.com/video/BV1Fq421c7ts/][p1]] / [[https://www.bilibili.com/video/BV17m42177Fu/][p2]] / [[https://www.bilibili.com/video/BV14M4m197Vo/][p3]]      | [[file:notes/L10-concurrency-1.org][并发 I]]             |
+| <2024-04-09 Tue> | L10     | Concurrency I             | [[https://www.bilibili.com/video/BV1Fq421c7ts/][p1]] / [[https://www.bilibili.com/video/BV17m42177Fu/][p2]] / [[https://www.bilibili.com/video/BV14M4m197Vo/][p3]] / [[https://www.bilibili.com/video/BV1RE421g7UA/][p4]] | [[file:notes/L10-concurrency-1.org][并发 I]]             |
 |                  | L11     | Concurrency II            |                   |                    |
 |                  | L12     | Unsafe Rust               |                   |                    |
 |                  | L13     | Macros!                   |                   |                    |
