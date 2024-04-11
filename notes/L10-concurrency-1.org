@@ -119,7 +119,7 @@
 #+END_SRC
 
 * channel
-** COMMENT mpsc
+** mpsc
 1. mpsc (multiple producer, single consumer)
 2. 通道类型 [[https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html][channel]] | [[https://doc.rust-lang.org/std/sync/mpsc/fn.sync_channel.html][sync_channel]]
    - channel 异步
@@ -146,3 +146,27 @@
 
 ** mpmc
 1. [[https://github.com/zesterer/flume][flume]]
+   - A blazingly fast multi-producer, multi-consumer channel.
+
+#+BEGIN_SRC rust :exports both
+  use std::thread;
+
+  fn main() {
+      println!("Hello, world!");
+
+      let (tx, rx) = flume::unbounded();
+
+      thread::spawn(move || {
+          (0..10).for_each(|i| {
+              tx.send(i).unwrap();
+          })
+      });
+
+      let received: u32 = rx.iter().sum();
+
+      assert_eq!((0..10).sum::<u32>(), received);
+  }
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargoG5nBYA`.
