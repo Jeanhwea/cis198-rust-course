@@ -54,23 +54,17 @@
 
 ** 多线程，主线程 sleep
 #+BEGIN_SRC rust :exports both
-  for _i in 0..10 {
-      thread::spawn(|| {
-          println!("aaa");
-      });
+  use std::{thread, time::Duration};
+
+  fn main() {
+      for i in 0..10 {
+          thread::spawn(move || {
+              println!("aaa i = {}", i);
+          });
+      }
+
+      thread::sleep(Duration::from_millis(1000));
   }
-
-  thread::sleep(Duration::from_millis(1000));
-#+END_SRC
-
-#+BEGIN_SRC rust :exports both
-  for _i in 0..10 {
-      thread::spawn(move || {
-          println!("aaa, i = {}", i);
-      });
-  }
-
-  thread::sleep(Duration::from_millis(1000));
 #+END_SRC
 
 * ~Send~ & ~Sync~

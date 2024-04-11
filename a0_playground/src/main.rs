@@ -1,12 +1,19 @@
-use core::time;
-use std::thread;
+use std::{
+    sync::{Arc, Mutex},
+    thread,
+    time::Duration,
+};
 
 fn main() {
-    for i in 0..10 {
+    let data = Arc::new(Mutex::new(vec![1, 2, 3]));
+    for i in 0..3 {
+        let data = data.clone();
         thread::spawn(move || {
-            println!("thr #{}", i);
+            let mut data = data.lock().unwrap();
+            data[i] += 1;
         });
     }
-    let dur = time::Duration::from_millis(500);
-    thread::sleep(dur);
+    thread::sleep(Duration::from_millis(500));
+
+    println!("{:?}", data.clone().lock().unwrap());
 }
