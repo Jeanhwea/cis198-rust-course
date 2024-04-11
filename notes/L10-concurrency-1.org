@@ -86,7 +86,34 @@
      #+END_SRC
 
      #+RESULTS:
-     : error: Could not compile `cargow9GET6`.
-
+     : error: Could not compile `cargoQt5Cpp`.
 3. 它们都是 marker trait，仅用于标记
    - [[https://doc.rust-lang.org/std/marker/trait.Send.html][Send]] | [[https://doc.rust-lang.org/std/marker/trait.Sync.html][Sync]]
+   - 它们都是 unsafe
+
+* 共享线程状态
+1. Arc 线程间共享
+2. Mutex 线程安全的内部可变性
+#+BEGIN_SRC rust :exports both
+  use std::{
+      sync::{Arc, Mutex},
+      thread,
+      time::Duration,
+  };
+
+  fn main() {
+      let data = Arc::new(Mutex::new(vec![1, 2, 3]));
+
+      for i in 0..3 {
+          let data = data.clone();
+          thread::spawn(move || {
+              let mut data = data.lock().unwrap();
+              data[i] += 1;
+          });
+      }
+
+      thread::sleep(Duration::from_millis(1000));
+
+      println!("data = {:?}", data.clone().lock().unwrap());
+  }
+#+END_SRC
