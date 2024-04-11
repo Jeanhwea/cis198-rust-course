@@ -127,22 +127,48 @@
      + ~rx.recv().unwrap()~
    - sync_channel 同步，带缓冲
 3. ~Sender<T>~ 和 ~Reciever<T>~ 中的 T 会自动推导类型
-   #+BEGIN_SRC rust :exports both
-     use std::{sync::mpsc::channel, thread};
 
-     fn main() {
-         let (tx, rx) = channel();
-         thread::spawn(move || {
-             for i in 0..3 {
-                 tx.send(i).unwrap();
-             }
-         });
+#+BEGIN_SRC rust :exports both
+  use std::{sync::mpsc::channel, thread};
 
-         for r in rx {
-             println!("rx = {:?}", r);
-         }
-     }
+  fn main() {
+      let (tx, rx) = channel();
+      thread::spawn(move || {
+          for i in 0..3 {
+              tx.send(i).unwrap();
+          }
+      });
+
+      for r in rx {
+          println!("rx = {:?}", r);
+      }
+  }
    #+END_SRC
+
+多生成者，单消费者
+#+BEGIN_SRC rust :exports both
+  use std::{sync::mpsc::channel, thread};
+
+  fn main() {
+      let (tx, rx) = channel();
+
+      for i in 0..3 {
+          let tx = tx.clone();
+          // producer
+          thread::spawn(move || {
+              tx.send(i).unwrap();
+          });
+      }
+
+      drop(tx);
+
+      // consumer
+      // println!("rx = {:?}", rx.recv().unwrap());
+      for r in rx {
+          println!("rx = {:?}", r);
+      }
+  }
+#+END_SRC
 
 ** mpmc
 1. [[https://github.com/zesterer/flume][flume]]
