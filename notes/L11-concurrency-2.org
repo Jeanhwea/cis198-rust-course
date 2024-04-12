@@ -6,15 +6,13 @@
 #+OPTIONS: ^:nil
 
 * 并发原语
-1. RwLock | [[https://doc.rust-lang.org/std/sync/struct.RwLock.html][link]]
-2. Barrier | [[https://doc.rust-lang.org/std/sync/struct.Barrier.html][link]]
-3. CondVar | [[https://doc.rust-lang.org/std/sync/struct.Condvar.html][link]]
-4. Once | [[https://doc.rust-lang.org/std/sync/struct.Once.html][link]]
 
 ** RwLock
-1. 读写锁
-2. ~read()~ 读取方法
-3. ~write()~ 写入方法
+1. RwLock | [[https://doc.rust-lang.org/std/sync/struct.RwLock.html][link]]
+2. 读写锁
+3. ~read()~ 读取方法
+4. ~write()~ 写入方法
+5. [[https://doc.rust-lang.org/std/sync/struct.Mutex.html#poisoning][Poisoning]] like Mutex
 #+BEGIN_SRC rust :exports both
   use std::sync::RwLock;
 
@@ -37,3 +35,78 @@
 #+END_SRC
 
 #+RESULTS:
+
+** Barrier
+1. Barrier | [[https://doc.rust-lang.org/std/sync/struct.Barrier.html][link]]
+2. ~wait()~ 方法进行同步
+#+BEGIN_SRC rust :exports both
+  use std::{
+      sync::{Arc, Barrier},
+      thread,
+  };
+
+  fn main() {
+      let n = 10;
+      let mut handles = Vec::with_capacity(n);
+      let barrier = Arc::new(Barrier::new(n));
+      for _ in 0..n {
+          let c = Arc::clone(&barrier);
+          handles.push(thread::spawn(move || {
+              println!("before");
+              c.wait();
+              println!("after");
+          }));
+      }
+
+      for handle in handles {
+         handle.join().unwrap();
+      }
+  }
+#+END_SRC
+
+** CondVar
+1. CondVar | [[https://doc.rust-lang.org/std/sync/struct.Condvar.html][link]]
+2. ~wait()~
+3. ~notify_all()~
+#+BEGIN_SRC rust :exports both
+  use std::sync::{Arc, Condvar, Mutex};
+  use std::thread;
+
+  fn main() {
+      let pair = Arc::new((Mutex::new(false), Condvar::new()));
+      let pair2 = Arc::clone(&pair);
+
+      // Inside of our lock, spawn a new thread, and then wait for it to start.
+      thread::spawn(move || {
+          let (lock, cvar) = &*pair2;
+          let mut started = lock.lock().unwrap();
+          ,*started = true;
+          // We notify the condvar that the value has changed.
+          cvar.notify_one();
+      });
+
+      // Wait for the thread to start up.
+      let (lock, cvar) = &*pair;
+      let mut started = lock.lock().unwrap();
+      while !*started {
+          started = cvar.wait(started).unwrap();
+      }
+  }
+#+END_SRC
+
+** Once
+1. Once | [[https://doc.rust-lang.org/std/sync/struct.Once.html][link]]
+2. ~call_once()~
+#+BEGIN_SRC rust :exports both
+  use std::sync::Once;
+
+  static INIT: Once = Once::new();
+  for _ in 0..10 {
+      INIT.call_once(|| {
+          println!("xxx");
+      });
+  }
+#+END_SRC
+
+#+RESULTS:
+: xxx

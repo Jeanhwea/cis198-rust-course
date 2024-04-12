@@ -1,19 +1,10 @@
-use std::{sync::mpsc::channel, thread};
+use std::sync::Once;
 
 fn main() {
-    let (tx, rx) = channel();
-
-    // sender
-    thread::spawn(move || {
-        for _ in 0..3 {
-            tx.send("xxx").unwrap();
-        }
-
-        // tx.send(1).unwrap();
-    });
-
-    // reciever
-    for r in rx {
-        println!("rx = {:?}", r);
+    static INIT: Once = Once::new();
+    for _ in 0..10 {
+        INIT.call_once(|| {
+            println!("xxx");
+        });
     }
 }

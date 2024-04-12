@@ -1,16 +1,19 @@
 #![allow(unused_variables)]
 
+use std::sync::RwLock;
+
 fn main() {
-    let nums = vec![1, 2, 3];
+    let lock = RwLock::new(0);
 
-    {
-        let ticket = || nums;
-    }
+    // let r1 = lock.read().unwrap();
+    // let r2 = lock.read().unwrap();
+    // println!("read: {:?}", lock.read().unwrap());
+    // println!("read: {:?}", lock.read().unwrap());
 
-    // let _alp = || {
-    //     nums;
-    //     vec!['a', 'b']
-    // };
-
-    println!("{:?}", nums);
+    // let mut w1 = lock.write().unwrap();
+    // *w1 = 1;
+    // let mut w2 = lock.write().unwrap();
+    // *w2 = 2;
+    // println!("write: {:?}", lock.write().unwrap());
+    // println!("write: {:?}", lock.write().unwrap());
 }
