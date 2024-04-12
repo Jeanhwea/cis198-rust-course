@@ -4,3 +4,36 @@
 #+DATE: <2024-04-12 Fri>
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
+
+* 并发原语
+1. RwLock | [[https://doc.rust-lang.org/std/sync/struct.RwLock.html][link]]
+2. Barrier | [[https://doc.rust-lang.org/std/sync/struct.Barrier.html][link]]
+3. CondVar | [[https://doc.rust-lang.org/std/sync/struct.Condvar.html][link]]
+4. Once | [[https://doc.rust-lang.org/std/sync/struct.Once.html][link]]
+
+** RwLock
+1. 读写锁
+2. ~read()~ 读取方法
+3. ~write()~ 写入方法
+#+BEGIN_SRC rust :exports both
+  use std::sync::RwLock;
+
+  let lock = RwLock::new(5);
+
+  // many reader locks can be held at once
+  {
+      let r1 = lock.read().unwrap();
+      let r2 = lock.read().unwrap();
+      assert_eq!(*r1, 5);
+      assert_eq!(*r2, 5);
+  } // read locks are dropped at this point
+
+  // only one write lock may be held, however
+  {
+      let mut w = lock.write().unwrap();
+      ,*w += 1;
+      assert_eq!(*w, 6);
+  } // write lock is dropped here
+#+END_SRC
+
+#+RESULTS:

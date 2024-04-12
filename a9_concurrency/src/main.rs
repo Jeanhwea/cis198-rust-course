@@ -5,7 +5,7 @@ fn main() {
 
     // sender
     thread::spawn(move || {
-        for i in 0..3 {
+        for _ in 0..3 {
             tx.send("xxx").unwrap();
         }
 
