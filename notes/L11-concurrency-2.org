@@ -6,7 +6,6 @@
 #+OPTIONS: ^:nil
 
 * 并发原语
-
 ** RwLock
 1. RwLock | [[https://doc.rust-lang.org/std/sync/struct.RwLock.html][link]]
 2. 读写锁
@@ -110,3 +109,7 @@
 
 #+RESULTS:
 : xxx
+
+* 原子变量
+** atomic
+1. atomic | [[https://doc.rust-lang.org/std/sync/atomic/index.html][link]]
