@@ -4,3 +4,32 @@
 #+DATE: <2024-04-13 Sat>
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
+
+* unsafe
+** safe vs unsafe
+1. safe 保证的
+   - Ownership
+   - Type Checking
+   - Memory safety rules
+2. unsafe 不能保证的
+   - Deadlock
+   - Memory leak
+   - Integer overflow
+   - 退出是忘记调用 destructor
+** unsafe 函数
+1. unsafe block
+2. unsafe function
+#+BEGIN_SRC rust :exports both
+  unsafe fn foo() {
+      println!("foo");
+  }
+
+  // foo();
+
+  unsafe {
+      foo();
+  }
+#+END_SRC
+
+#+RESULTS:
+: foo
