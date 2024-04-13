@@ -139,3 +139,19 @@
       }
   }
 #+END_SRC
+
+* rayon
+#+BEGIN_SRC sh
+  cargo add rayon
+#+END_SRC
+
+#+BEGIN_SRC rust :exports both
+  use rayon::iter::{IntoParallelRefMutIterator, ParallelIterator};
+
+  let mut x = vec![1, 2, 3];
+  x.par_iter_mut().for_each(|p| *p += 1);
+  println!("x = {:?}", x);
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargooiPibJ`.
