@@ -33,3 +33,66 @@
 
 #+RESULTS:
 : foo
+
+** borrow splitting
+1. 结构体可以 borrow splitting
+2. 但是 array 和 slice 却会造成问题
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  struct Point {
+      x: i32,
+      y: i32,
+  }
+
+  fn main() {
+      let mut p = Point { x: 1, y: 2 };
+      let x1 = &mut p.x;
+      let y1 = &mut p.y;
+      ,*x1 += 1;
+      ,*y1 += 1;
+      println!("p = {:?}", p);
+  }
+#+END_SRC
+
+#+RESULTS:
+: p = Point { x: 2, y: 3 }
+
+** raw pointer
+1. ~*const T~ 不可变指针
+   - 使用 ~null()~ 初始化
+2. ~*mut T~ 可变指针
+   - 使用 ~null_mut()~ 初始化
+3. 解引用 raw pointer 是 unsafe 的
+
+#+BEGIN_SRC rust :exports both
+  let mut x = 0i32;
+  // *const T
+  let ptr1 = &x as *const i32;
+  // *mut T
+  let ptr2 = &mut x as *mut i32;
+
+  let b1 = Box::new(1);
+  let ptr3 = &*b1 as *const i32; // 不像 let b2 = b1; 这里没有消费 b1
+  unsafe {
+      println!("ptr3 = {:?}", *ptr3);
+  }
+  println!("b1 = {}", b1);
+#+END_SRC
+
+#+RESULTS:
+: ptr3 = 1
+: b1 = 1
+
+raw pointer 的初始化
+#+BEGIN_SRC rust :exports both
+  let b1 = Box::new(123);
+  let p2 = Box::into_raw(b1);
+
+  unsafe {
+      println!("ans = {:?}", *p2);
+      drop(Box::from_raw(p2));
+  }
+#+END_SRC
+
+#+RESULTS:
+: ans = 123

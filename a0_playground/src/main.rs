@@ -1,19 +1,18 @@
 #![allow(unused_variables)]
+#![allow(dead_code)]
+#![allow(unused_mut)]
 
-use std::sync::RwLock;
+#[derive(Debug)]
+struct Point {
+    x: i32,
+    y: i32,
+}
 
 fn main() {
-    let lock = RwLock::new(0);
-
-    // let r1 = lock.read().unwrap();
-    // let r2 = lock.read().unwrap();
-    // println!("read: {:?}", lock.read().unwrap());
-    // println!("read: {:?}", lock.read().unwrap());
-
-    // let mut w1 = lock.write().unwrap();
-    // *w1 = 1;
-    // let mut w2 = lock.write().unwrap();
-    // *w2 = 2;
-    // println!("write: {:?}", lock.write().unwrap());
-    // println!("write: {:?}", lock.write().unwrap());
+    let mut p = Point { x: 1, y: 2 };
+    let x1 = &mut p.x;
+    let y1 = &mut p.y;
+    *x1 += 1;
+    *y1 += 1;
+    println!("p = {:?}", p);
 }
