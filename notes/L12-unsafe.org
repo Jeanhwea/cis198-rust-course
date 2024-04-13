@@ -1,0 +1,6 @@
+#+TITLE: CIS198 Lecture 12: unsafe
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-04-13 Sat>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil
