@@ -187,6 +187,8 @@
 所以无法在子线程中借用主线程作用域中的局部变量。
 所以只能使用 ~move~ 关键字将主线程的局部变量移动到子线程中
 
+[[https://doc.rust-lang.org/stable/std/thread/fn.scope.html][link]]
+
 #+BEGIN_SRC rust :exports both
   let greeting = String::from("Hello world!");
 
