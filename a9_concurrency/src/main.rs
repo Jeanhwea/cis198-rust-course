@@ -1,5 +1,5 @@
 fn inc(slice: &mut [i32]) {
-    if slice.len() < 100 {
+    if slice.len() < 10 {
         for p in slice {
             *p += 1;
         }
@@ -11,7 +11,7 @@ fn inc(slice: &mut [i32]) {
 }
 
 fn main() {
-    let mut x = vec![1; 3000];
+    let mut x = vec![1; 100];
     inc(&mut x);
     println!("x = {:?}", x);
 }

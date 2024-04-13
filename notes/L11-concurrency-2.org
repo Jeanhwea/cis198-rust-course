@@ -188,6 +188,7 @@
 所以只能使用 ~move~ 关键字将主线程的局部变量移动到子线程中
 
 #+BEGIN_SRC rust :exports both
+  use std::thread;
   let greeting = String::from("Hello world!");
 
   let handle1 = thread::spawn({
@@ -204,6 +205,10 @@
   handle1.join().unwrap();
   handle2.join().unwrap();
 #+END_SRC
+
+#+RESULTS:
+: thread #2 says: Hello world!
+: thread #1 says: Hello world!
 
 Scoped Thread 就可以打破上面的限制 | [[https://doc.rust-lang.org/stable/std/thread/fn.scope.html][link]]
 #+BEGIN_SRC rust :exports both
@@ -237,8 +242,8 @@ Scoped Thread 就可以打破上面的限制 | [[https://doc.rust-lang.org/stabl
 #+RESULTS:
 : hello from the main thread
 : hello from the first scoped thread
-: [src/main.rs:12:13] &a = [hello from the second scoped thread
-:
+: hello from the second scoped thread
+: [src/main.rs:12:13] &a = [
 :     1,
 :     2,
 :     3,
@@ -251,3 +256,12 @@ Scoped Thread 就可以打破上面的限制 | [[https://doc.rust-lang.org/stabl
   3. 相比于使用 thread::spawn，不会有泄漏的风险。
 - 缺点:
   1. 就是会使标准库变大
+
+* thread pool
+1. 线程池
+
+* eventual
+1. eventual
+   - Future (like Promise)
+   - Stream 流
+2. tokio
