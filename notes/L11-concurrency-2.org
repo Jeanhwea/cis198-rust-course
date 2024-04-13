@@ -141,6 +141,7 @@
 #+END_SRC
 
 * rayon
+** 使用 rayon
 #+BEGIN_SRC sh
   cargo add rayon
 #+END_SRC
@@ -155,3 +156,27 @@
 
 #+RESULTS:
 : error: Could not compile `cargooiPibJ`.
+
+** 分治
+#+BEGIN_SRC rust :exports both
+  fn inc(slice: &mut [i32]) {
+      if slice.len() < 10 {
+          for p in slice {
+              ,*p += 1;
+          }
+      } else {
+          let mid = slice.len() / 2;
+          let (left, right) = slice.split_at_mut(mid);
+          rayon::join(|| inc(left), || inc(right));
+      }
+  }
+
+  fn main() {
+      let mut x = vec![1; 100];
+      inc(&mut x);
+      println!("x = {:?}", x);
+  }
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargoMEjli2`.
