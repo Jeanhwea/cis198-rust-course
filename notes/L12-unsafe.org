@@ -11,7 +11,7 @@
    - Ownership
    - Type Checking
    - Memory safety rules
-2. unsafe 不能保证的
+2. safe 不能保证的
    - Deadlock
    - Memory leak
    - Integer overflow
@@ -56,6 +56,31 @@
 
 #+RESULTS:
 : p = Point { x: 2, y: 3 }
+
+数组则不行，需要使用标准库中的 ~split_at_mut()~
+#+BEGIN_SRC rust :exports both
+  let mut arr = [1, 2, 3];
+  let mut a1 = &mut arr[1];
+  let mut a2 = &mut arr[2];
+  ,*a1 = 444;
+  println!("arr = {:?}", arr);
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargo36Q6pK`.
+
+#+BEGIN_EXAMPLE
+  error[E0499]: cannot borrow `arr[_]` as mutable more than once at a time
+   --> src/main.rs:5:14
+    |
+  4 | let mut a1 = &mut arr[1];
+    |              ----------- first mutable borrow occurs here
+  5 | let mut a2 = &mut arr[2];
+    |              ^^^^^^^^^^^ second mutable borrow occurs here
+  6 | *a1 = 444;
+    | --------- first borrow later used here
+    |
+#+END_EXAMPLE
 
 ** raw pointer
 1. ~*const T~ 不可变指针
