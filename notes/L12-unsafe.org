@@ -121,3 +121,25 @@ raw pointer 的初始化
 
 #+RESULTS:
 : ans = 123
+
+* transmute
+1. 将一种类型的值的位重新解释为另一种类型
+2. 将指针转换为函数指针
+#+BEGIN_SRC rust :exports both
+  use std::mem::transmute;
+
+  fn foo() -> i32 {
+      123
+  }
+
+  fn main() {
+      let pointer = foo as *const ();
+      let f1 = unsafe {
+          std::mem::transmute::<*const (), fn() -> i32>(pointer)
+      };
+      println!("ans = {:?}", f1());
+  }
+#+END_SRC
+
+#+RESULTS:
+: ans = 123

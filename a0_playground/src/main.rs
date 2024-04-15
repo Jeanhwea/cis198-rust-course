@@ -2,17 +2,22 @@
 #![allow(dead_code)]
 #![allow(unused_mut)]
 
+use std::mem::transmute;
+
 #[derive(Debug)]
 struct Point {
     x: i32,
     y: i32,
 }
 
+fn foo() -> i32 {
+    123
+}
+
 fn main() {
-    let mut p = Point { x: 1, y: 2 };
-    let x1 = &mut p.x;
-    let y1 = &mut p.y;
-    *x1 += 1;
-    *y1 += 1;
-    println!("p = {:?}", p);
+    let pointer = foo as *const ();
+    let f1 = unsafe {
+        std::mem::transmute::<*const (), fn() -> i32>(pointer)
+    };
+    println!("ans = {:?}", f1());
 }
