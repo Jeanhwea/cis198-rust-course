@@ -1,3 +1,5 @@
-int foo() {
+#include <stdint.h>
+
+int32_t foo() {
     return 0;
 }

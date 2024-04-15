@@ -5,4 +5,5 @@ extern "C" {
 
 fn main() {
     println!("foo() = {:?}", unsafe { foo() });
+    println!("Hello");
 }
