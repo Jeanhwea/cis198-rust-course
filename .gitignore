@@ -2,3 +2,6 @@
 debug*
 *.class
 *.java
+*.o
+*.dylib
+*.so
