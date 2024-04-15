@@ -31,7 +31,7 @@
 | <2024-04-08 Mon> | L09     | Networking & Web          | [[https://www.bilibili.com/video/BV1G1421m7ZW/][p1]]                | [[file:notes/L09-network-web.org][网络编程]]           |
 | <2024-04-09 Tue> | L10     | Concurrency I             | [[https://www.bilibili.com/video/BV1Fq421c7ts/][p1]] / [[https://www.bilibili.com/video/BV17m42177Fu/][p2]] / [[https://www.bilibili.com/video/BV14M4m197Vo/][p3]] / [[https://www.bilibili.com/video/BV1RE421g7UA/][p4]] | [[file:notes/L10-concurrency-1.org][并发 I]]             |
 | <2024-04-12 Fri> | L11     | Concurrency II            | [[https://www.bilibili.com/video/BV1aT421m7Aq/][p1]] / [[https://www.bilibili.com/video/BV1RJ4m1p7yP/][p2]] / [[https://www.bilibili.com/video/BV1gH4y1K7Vc/][p3]]      | [[file:notes/L11-concurrency-2.org][并发 II]]            |
-| <2024-04-14 Sun> | L12     | Unsafe Rust               | [[https://www.bilibili.com/video/BV1iC411G7pL/][p1]] / [[https://www.bilibili.com/video/BV15p421X74B/][p2]]           | [[file:notes/L12-unsafe.org][unsafe]]             |
+| <2024-04-14 Sun> | L12     | Unsafe Rust               | [[https://www.bilibili.com/video/BV1iC411G7pL/][p1]] / [[https://www.bilibili.com/video/BV15p421X74B/][p2]] / [[https://www.bilibili.com/video/BV13x4y1a7qf/][p3]]      | [[file:notes/L12-unsafe.org][unsafe]]             |
 |                  | L13     | Macros!                   |                   |                    |
 |                  | L14     | Community & Contributing  |                   |                    |
 |                  | L15     | Nightly Rust              |                   |                    |
