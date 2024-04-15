@@ -125,6 +125,7 @@ raw pointer 的初始化
 * transmute
 1. 将一种类型的值的位重新解释为另一种类型
 2. 将指针转换为函数指针
+3. transmute (转引用) vs transmute_copy (copy 值)
 #+BEGIN_SRC rust :exports both
   fn foo() -> i32 {
       123

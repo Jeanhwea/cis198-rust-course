@@ -15,9 +15,11 @@ fn foo() -> i32 {
 }
 
 fn main() {
-    let pointer = foo as *const ();
-    let f1 = unsafe {
-        std::mem::transmute::<*const (), fn() -> i32>(pointer)
-    };
-    println!("ans = {:?}", f1());
+    // let pointer = foo as *const ();
+    // let f1 = unsafe { std::mem::transmute::<*const (), fn() -> i32>(pointer) };
+    // println!("ans = {:?}", f1());
+
+    let mut v1 = vec![1, 2, 3];
+    v1.insert(1, 99);
+    println!("v1 = {:?}", v1);
 }
