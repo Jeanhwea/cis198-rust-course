@@ -142,3 +142,6 @@ raw pointer 的初始化
 
 #+RESULTS:
 : ans = 123
+
+* FFI
+1. rust 和其它语言调用
