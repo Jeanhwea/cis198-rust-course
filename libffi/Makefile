@@ -1,4 +1,4 @@
-all: libffi.so
+all: libffi.dylib
 
 ffi.o: ffi.c
 	cc -c -fPIC -o ffi.o ffi.c
