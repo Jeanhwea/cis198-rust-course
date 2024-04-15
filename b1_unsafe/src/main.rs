@@ -1,4 +1,4 @@
-#[link(name = "foo", kind = "dylib")]
+#[link(name = "libffi.so", kind = "dylib")]
 extern "C" {
     fn foo() -> i32;
 }
