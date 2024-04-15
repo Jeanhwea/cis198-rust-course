@@ -1,7 +1,7 @@
 all: run
 
 build:
-	RUST_FLAGS="-L ../libffi" cargo build
+	RUSTFLAGS="-L ../libffi" cargo build
 
 run: build
-	LD_LIBRARY_PATH=. ./target/debug/b1_unsafe
+	LD_LIBRARY_PATH=../libffi ./target/debug/b1_unsafe
