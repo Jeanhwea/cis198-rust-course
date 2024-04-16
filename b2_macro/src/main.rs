@@ -1,13 +1,14 @@
-macro_rules! incr {
-    ($x:ident) => {
-        $x += 1;
+#![feature(trace_macros)]
+
+macro_rules! each_tt {
+    () => {};
+    ( $_tt:tt $($rest:tt)* ) => {
+        each_tt!( $($rest)* );
     };
 }
 
 fn main() {
-    let mut x = 0;
-
-    incr!(x); // x += 1;
-
-    println!("x = {x}");
+    trace_macros!(true);
+    each_tt!(aaa bbb ccc);
+    trace_macros!(false);
 }

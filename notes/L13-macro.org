@@ -87,3 +87,98 @@
 
 #+RESULTS:
 : ans = [3, 4]
+
+* 词法扩展
+** 卫生性
+#+BEGIN_SRC rust :exports both
+  macro_rules! using_a {
+      ($e:expr) => { { let a = 42; $e } };
+  }
+
+  // let a = 40;
+  let four = using_a!(a/10);
+  println!("four = {:?}", four);
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargoztSXrx`.
+
+** 调试
+#+BEGIN_SRC rust :exports both
+  #![feature(trace_macros)]
+  macro_rules! each_tt {
+      () => {};
+      ( $_tt:tt $($rest:tt)* ) => {
+          each_tt!( $($rest)* );
+      };
+  }
+
+  fn main() {
+      trace_macros!(true);
+      each_tt!(aaa bbb ccc);
+      trace_macros!(false);
+  }
+#+END_SRC
+
+#+RESULTS:
+: error: Could not compile `cargoIs1tGc`.
+
+* 设计模式
+** 回调
+#+BEGIN_SRC rust :exports both
+  macro_rules! call_with_larch {
+      ($callback:ident) => { $callback!(larch) };
+  }
+
+  macro_rules! expand_to_larch {
+      () => { larch };
+  }
+
+  macro_rules! recognize_tree {
+      (larch) => { println!("#1, the Larch.") };
+      (redwood) => { println!("#2, the Mighty Redwood.") };
+      (fir) => { println!("#3, the Fir.") };
+      (chestnut) => { println!("#4, the Horse Chestnut.") };
+      (pine) => { println!("#5, the Scots Pine.") };
+      ($($other:tt)*) => { println!("I don't know; some kind of birch maybe?") };
+  }
+
+  recognize_tree!(expand_to_larch!()); // 无法直接使用 `expand_to_larch!` 的展开结果
+  call_with_larch!(recognize_tree);    // 回调就是给另一个宏传入宏的名称 (`ident`)，而不是宏的结果
+#+END_SRC
+
+#+RESULTS:
+: I don't know; some kind of birch maybe?
+: #1, the Larch.
+
+** macro TT Munchers
+#+BEGIN_SRC rust :exports both
+  macro_rules! mixed_rules {
+      () => {};
+      (trace $name:ident; $($tail:tt)*) => {
+          {
+              println!(concat!(stringify!($name), " = {:?}"), $name);
+              mixed_rules!($($tail)*);
+          }
+      };
+      (trace $name:ident = $init:expr; $($tail:tt)*) => {
+          {
+              let $name = $init;
+              println!(concat!(stringify!($name), " = {:?}"), $name);
+              mixed_rules!($($tail)*);
+          }
+      };
+  }
+
+  let x = 1;
+  let v = vec![1, 2, 3];
+
+  mixed_rules!(
+      trace x;
+      trace v;
+  );
+#+END_SRC
+
+#+RESULTS:
+: x = 1
+: v = [1, 2, 3]
