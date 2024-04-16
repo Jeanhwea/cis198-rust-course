@@ -183,4 +183,4 @@
 : v = [1, 2, 3]
 
 * 更多参考
-1. The Little Book of Rust Macros | [[https://danielkeep.github.io/tlborm/book/README.html][link]]
+1. The Little Book of Rust Macros | [[https://danielkeep.github.io/tlborm/book/README.html][link]] | [[https://villezuo.gitee.io/tlborm/index.html][zh]]
