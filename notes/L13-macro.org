@@ -1,0 +1,29 @@
+#+TITLE: CIS198 Lecture 13: 宏
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-04-13 Sat>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil
+
+* 语法扩展
+1. ~#[foo]~ 和 ~#![foo]~ 属性
+2. ~foo! arg~ 宏
+   - ~foo!(...)~
+   - ~foo![...]~
+   - ~foo!{...}~
+3. ~foo! arg1 arg2~
+   - ~macro_rules! name {...}~ 定义宏
+
+* 定义宏
+#+BEGIN_SRC rust :exports both
+  macro_rules! incr {
+      ($x:ident) => { $x += 1; };
+  }
+
+  let mut x = 0;
+  incr!(x);
+  println!("x = {x}");
+#+END_SRC
+
+#+RESULTS:
+: x = 1
