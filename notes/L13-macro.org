@@ -88,7 +88,6 @@
 #+RESULTS:
 : ans = [3, 4]
 
-* 词法扩展
 ** 卫生性
 #+BEGIN_SRC rust :exports both
   macro_rules! using_a {
