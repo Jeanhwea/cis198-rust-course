@@ -27,3 +27,57 @@
 
 #+RESULTS:
 : x = 1
+
+* AST
+#+BEGIN_SRC rust :exports both
+  macro_rules! four {
+      () => { 1 + 3 };
+  }
+
+  println!("ans = {:?}", four!());
+#+END_SRC
+
+#+RESULTS:
+: ans = 4
+
+* 宏
+** 捕获
+#+BEGIN_SRC rust :exports both
+  macro_rules! twice {
+      ( $e:expr ) => { { $e; $e } }
+  }
+
+  fn foo() { println!("foo"); }
+
+  twice!(foo());
+#+END_SRC
+
+#+RESULTS:
+: foo
+: foo
+
+** 重复
+1. 重复用来重复模式
+2. 形式 ~$ (...) sep rep~
+   - ~$~ 开头
+   - ~(...)~ 重复执行的模式串
+   - sep 分割符，例如： ~,~ 和 ~;~
+   - rep 重复的次数
+     + ~*~ 零或多次
+     + ~+~ 一或多次
+#+BEGIN_SRC rust :exports both
+  macro_rules! myvec {
+      ( $( $elem:expr ) , * ) => {
+          {
+              let mut v = Vec::new();
+              $( v.push($elem); )*
+              v
+          }
+      }
+  }
+
+  println!("{:?}", myvec![1, 3, 4]);
+#+END_SRC
+
+#+RESULTS:
+: [1, 3, 4]
