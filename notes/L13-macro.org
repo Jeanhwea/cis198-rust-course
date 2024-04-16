@@ -17,12 +17,18 @@
 * 定义宏
 #+BEGIN_SRC rust :exports both
   macro_rules! incr {
-      ($x:ident) => { $x += 1; };
+      ($x:ident) => {
+          $x += 1;
+      };
   }
 
-  let mut x = 0;
-  incr!(x);
-  println!("x = {x}");
+  fn main() {
+      let mut x = 0;
+
+      incr!(x); // x += 1;
+
+      println!("x = {x}");
+  }
 #+END_SRC
 
 #+RESULTS:
@@ -49,7 +55,7 @@
 
   fn foo() { println!("foo"); }
 
-  twice!(foo());
+  twice!(foo()); // => {foo(); foo()}
 #+END_SRC
 
 #+RESULTS:
@@ -76,8 +82,8 @@
       }
   }
 
-  println!("{:?}", myvec![1, 3, 4]);
+  println!("ans = {:?}", myvec![3, 4]);
 #+END_SRC
 
 #+RESULTS:
-: [1, 3, 4]
+: ans = [3, 4]
