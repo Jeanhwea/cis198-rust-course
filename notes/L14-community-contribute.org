@@ -1,0 +1,6 @@
+#+TITLE: CIS198 Lecture 14: 社区和贡献
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-04-17 Wed>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil

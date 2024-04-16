@@ -1,7 +1,7 @@
 #+TITLE: CIS198 Lecture 13: 宏
 #+AUTHOR: Jinghui Hu
 #+EMAIL: hujinghui@buaa.edu.cn
-#+DATE: <2024-04-13 Sat>
+#+DATE: <2024-04-16 Tue>
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
 
