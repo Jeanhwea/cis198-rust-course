@@ -14,12 +14,12 @@
    - 所有权，生命周期，借用检测
    - cargo 工具
    - 函数式+命令式支持
-4. 视频讲解见 [[https://space.bilibili.com/1969478249/channel/collectiondetail?sid=2542770][B站]]
+4. 视频讲解见 [[https://space.bilibili.com/1969478249/channel/collectiondetail?sid=2542770][B 站]]
 
 * 课程大纲
 | Timeline         | Lecture | Topic                     | Video             | Note               |
 |------------------+---------+---------------------------+-------------------+--------------------|
-| <2024-03-23 Sat> | L00     | Course Introduction       | [[https://www.bilibili.com/video/BV146421F7tG/][p1]] / [[https://www.bilibili.com/video/BV1fw4m1R7D6/][p2]] / [[https://www.bilibili.com/video/BV1sH4y1W7AE][p3]]      | [[file:notes/l00-warmup.org][预热]]               |
+| <2024-03-23 Sat> | L00     | Course Introduction       | [[https://www.bilibili.com/video/BV146421F7tG/][p1]] / [[https://www.bilibili.com/video/BV1fw4m1R7D6/][p2]] / [[https://www.bilibili.com/video/BV1sH4y1W7AE/][p3]]      | [[file:notes/l00-warmup.org][预热]]               |
 | <2024-03-26 Tue> | L01     | Ownership & Lifetimes     | [[https://www.bilibili.com/video/BV1Df421f7yv/][p1]] / [[https://www.bilibili.com/video/BV1Rt421G7x6/][p2]] / [[https://www.bilibili.com/video/BV1xp42117wY/][p3]]      | [[file:notes/L01-ownership-lifetime.org][所有权和生命周期]]   |
 | <2024-03-29 Fri> | L02     | Structured Data           | [[https://www.bilibili.com/video/BV1kf421Z7Lt/][p1]] / [[https://www.bilibili.com/video/BV1PK421v7jc/][p2]] / [[https://www.bilibili.com/video/BV12x4y127L3/][p3]] / [[https://www.bilibili.com/video/BV1SJ4m1L72Y/][p4]] | [[file:notes/L02-structured-data.org][结构化的数据]]       |
 | <2024-03-31 Sun> | L03     | Generics & Traits         | [[https://www.bilibili.com/video/BV1oH4y1H7DP/][p1]] / [[https://www.bilibili.com/video/BV1ej421d7Hw/][p2]] / [[https://www.bilibili.com/video/BV1oJ4m1L7di/][p3]]      | [[file:notes/L03-generics-traits.org][泛型和 Trait]]       |
