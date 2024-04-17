@@ -10,3 +10,6 @@ build:
 
 run: build
 	$(LIBPATH) ./target/debug/b1_unsafe
+
+clean:
+	cargo clean
