@@ -5,7 +5,8 @@ extern "C" {
 }
 
 fn main() {
-    // println!("foo() = {:?}", unsafe { foo() });
+    println!("foo() = {:?}", unsafe { foo() });
+
     for i in 0..9 {
         unsafe {
             println!("fib({}) = {}", i, fib(i));
