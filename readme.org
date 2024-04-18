@@ -33,7 +33,7 @@
 | <2024-04-14 Sun> | L12     | Unsafe Rust               | [[https://www.bilibili.com/video/BV1iC411G7pL/][p1]] / [[https://www.bilibili.com/video/BV15p421X74B/][p2]] / [[https://www.bilibili.com/video/BV13x4y1a7qf/][p3]]      | [[file:notes/L12-unsafe.org][unsafe]]             |
 | <2024-04-16 Tue> | L13     | Macros!                   | [[https://www.bilibili.com/video/BV1Mm411z7sG/][p1]] / [[https://www.bilibili.com/video/BV1sA4m1c7nn/][p2]]           | [[file:notes/L13-macro.org][宏]]                 |
 | <2024-04-17 Wed> | L14     | Community & Contributing  | [[https://www.bilibili.com/video/BV1oi42127Tn/][p1]]                | [[file:notes/L14-community-contribute.org][社区和贡献]]         |
-|                  | L15     | Nightly Rust              |                   | [[file:notes/L15-nightly.org][Nightly]]            |
+| <2024-04-18 Thu> | L15     | Nightly Rust              |                   | [[file:notes/L15-nightly.org][Nightly]]            |
 |                  | L16     | Subtyping & Variance      |                   |                    |
 |                  | L17     | Borrowing & Owning        |                   |                    |
 |                  | L18     | Cross-Compilation         |                   |                    |
