@@ -4,3 +4,9 @@
 #+DATE: <2024-04-17 Wed>
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
+
+
+* 贡献
+1. rustc
+2. libstd
+3. documentation

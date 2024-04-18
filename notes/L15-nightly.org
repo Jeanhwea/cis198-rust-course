@@ -1,0 +1,22 @@
+#+TITLE: CIS198 Lecture 15: Nightly
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-04-18 Thu>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil
+
+
+* train model
+1. stable (稳定版)
+2. nightly (夜版)
+   - 用于开发
+3. beta
+   - 用于 CI 系统中的回归测试
+   - beta 版本后 6 周发布 stable
+#+BEGIN_EXAMPLE
+  nightly: * - - * - - * - - * - - * - - * - * - *
+                       |                         |
+  beta:                * - - - - - - - - *       *
+                                         |
+  stable:                                *
+#+END_EXAMPLE
