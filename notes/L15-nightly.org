@@ -6,9 +6,9 @@
 #+OPTIONS: ^:nil
 
 
-* train model
+* Train model （火车时刻表）
 1. stable (稳定版)
-2. nightly (夜版)
+2. nightly (夜版/开发版)
    - 用于开发
 3. beta
    - 用于 CI 系统中的回归测试
