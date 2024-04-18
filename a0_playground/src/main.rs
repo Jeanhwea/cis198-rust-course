@@ -2,18 +2,36 @@
 #![allow(dead_code)]
 #![allow(unused_mut)]
 
-fn longest<'a>(s: &'a str, t: &'a str) -> &'a str {
-    if s.len() > t.len() {
-        s
-    } else {
-        t
+trait Draw {
+    fn draw(&self) -> String;
+}
+
+impl Draw for u32 {
+    fn draw(&self) -> String {
+        format!("u32: {}", self)
     }
 }
 
-fn main() {
-    let s1 = String::from("abcd");
-    let s2 = "xyz";
+impl Draw for i32 {
+    fn draw(&self) -> String {
+        format!("i32: {}", self)
+    }
+}
 
-    let s3 = longest(s1.as_str(), s2);
-    println!("s3 = {:?}", s3);
+fn draw1(x: &dyn Draw) {
+    x.draw();
+}
+
+fn draw2(x: Box<dyn Draw>) {
+    x.draw();
+}
+
+fn main() {
+    let a = 10i32;
+    let b = 11u32;
+
+    draw1(&a);
+    draw1(&b);
+    draw2(Box::new(a));
+    draw2(Box::new(b));
 }
