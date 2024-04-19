@@ -4,3 +4,49 @@
 #+DATE: <2024-04-19 Fri>
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
+
+
+* 子类型化
+1. 子类型化是隐式的，可以出现在类型检查或类型推断的任何阶段
+2. Rust 中的子类型化的适用范围非常有限
+   - 仅出现在和生存期(lifetimes)， ~'a: 'b~ 表示 ~'a~ 是 ~'b~ 的子类型
+   - 型变(variance)相关的地方
+   - 以及那些和高阶生存期相关的类型型变之间
+3. 如果我们擦除了类型的生存期，那么唯一的子类型化就只是类型相等(type equality)了
+
+因为 ~'static~ 比生存期参数 ~'a~ 的寿命长，所以 ~&'static str~ 是 ~&'a str~ 的子类型，
+下面的例子中 t 是 s 的子类型
+#+BEGIN_SRC rust :exports both
+  fn main<'a>() {
+      let s: &'static str = "hi";
+      let t: &'a str = s;
+  }
+#+END_SRC
+
+更多例子
+#+BEGIN_SRC rust :exports both
+  // 这里 'a 被替换成了 'static
+  let subtype: &(for<'a> fn(&'a i32) -> &'a i32) = &((|x| x) as fn(&_) -> &_);
+  let supertype: &(fn(&'static i32) -> &'static i32) = subtype;
+
+  // 这对于 trait对象也是类似的
+  let subtype: &(dyn for<'a> Fn(&'a i32) -> &'a i32) = &|x| x;
+  let supertype: &(dyn Fn(&'static i32) -> &'static i32) = subtype;
+
+  // 我们也可以用一个高阶生存期来代替另一个
+  let subtype: &(for<'a, 'b> fn(&'a i32, &'b i32))= &((|x, y| {}) as fn(&_, &_));
+  let supertype: &for<'c> fn(&'c i32, &'c i32) = subtype;
+#+END_SRC
+
+#+RESULTS:
+
+* 型变
+1. 型变是泛型类型相对其参数具有的属性
+2. 泛型类型在它的某个参数上的型变是描述该参数的子类型化去如何影响此泛型类型的子类型化
+
+- 如果 ~T~ 是 ~U~ 的一个子类型意味着 ~F<T>~ 是 ~F<U>~ 的一个子类型（即子类型化
+  “通过(passes through)”），则 ~F<T>~ 在 ~T~ 上是协变的(covariant)
+- 如果 ~T~ 是 ~U~ 的一个子类型意味着 ~F<U>~ 是 ~F<T>~ 的一个子类型，则 ~F<T>~ 在
+  ~T~ 上是逆变的(contravariant)
+- 其他情况下（即不能由参数类型的子类型化关系推导出此泛型的型变关系）， ~F<T>~ 在
+  ~T~ 上是的不变的(invariant)
