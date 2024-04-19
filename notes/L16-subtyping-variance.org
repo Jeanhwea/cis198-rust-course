@@ -50,3 +50,5 @@
   ~T~ 上是逆变的(contravariant)
 - 其他情况下（即不能由参数类型的子类型化关系推导出此泛型的型变关系）， ~F<T>~ 在
   ~T~ 上是的不变的(invariant)
+
+[[https://doc.rust-lang.org/reference/subtyping.html][link]]
