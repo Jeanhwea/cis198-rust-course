@@ -2,36 +2,28 @@
 #![allow(dead_code)]
 #![allow(unused_mut)]
 
-trait Draw {
-    fn draw(&self) -> String;
+struct Closure<F> {
+    data: (u8, u16),
+    func: F,
 }
 
-impl Draw for u32 {
-    fn draw(&self) -> String {
-        format!("u32: {}", self)
+impl<F> Closure<F>
+where
+    F: Fn(&(u8, u16)) -> &u8,
+{
+    fn call(&self) -> &u8 {
+        (self.func)(&self.data)
     }
 }
 
-impl Draw for i32 {
-    fn draw(&self) -> String {
-        format!("i32: {}", self)
-    }
-}
-
-fn draw1(x: &dyn Draw) {
-    x.draw();
-}
-
-fn draw2(x: Box<dyn Draw>) {
-    x.draw();
+fn do_it(data: &(u8, u16)) -> &u8 {
+    &data.0
 }
 
 fn main() {
-    let a = 10i32;
-    let b = 11u32;
-
-    draw1(&a);
-    draw1(&b);
-    draw2(Box::new(a));
-    draw2(Box::new(b));
+    let c = Closure {
+        data: (1, 3),
+        func: do_it,
+    };
+    println!("ans = {}", c.call());
 }

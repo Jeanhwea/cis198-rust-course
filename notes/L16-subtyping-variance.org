@@ -1,0 +1,6 @@
+#+TITLE: CIS198 Lecture 16: 子类型和型变
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-04-19 Fri>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil
