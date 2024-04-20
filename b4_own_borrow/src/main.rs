@@ -1,3 +1,5 @@
+use std::borrow::Cow;
+
 #[derive(Debug)]
 struct StrToken<'a> {
     raw: &'a str,
@@ -20,20 +22,33 @@ impl StringToken {
     }
 }
 
-struct Token {
-    raw: String,
+#[derive(Debug)]
+struct Token<'a> {
+    raw: Cow<'a, str>,
 }
 
-impl Token {
-    pub fn new<S: Into<String>>(raw: S) -> Token {
+impl<'a> Token<'a> {
+    pub fn new<S: Into<Cow<'a, str>>>(raw: S) -> Token<'a> {
         Token { raw: raw.into() }
     }
 }
 
 fn main() {
-    let secret = "Hello, world!".to_string();
-    {
-        let token = StrToken::new(&secret[..]);
-        println!("token = {:?}", token);
-    }
+    // let secret = "Hello, world!".to_string();
+    // {
+    //     // let token = StringToken::new(secret);
+    //     // let token = StrToken::new(&secret[..]);
+
+    //     // let token = Token::new(&secret[..]);
+    //     let token = Token::new(secret);
+
+    //     println!("token = {:?}", token);
+    // }
+    // println!("secret = {:?}", secret);
+
+    let token1 = Token::new(Cow::Borrowed("abc"));
+    let s1 = "zyx".to_string();
+    let token2 = Token::new(Cow::Owned(s1));
+    println!("token1 = {:?}", token1);
+    println!("token2 = {:?}", token2);
 }

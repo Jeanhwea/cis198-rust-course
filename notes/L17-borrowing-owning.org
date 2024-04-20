@@ -40,3 +40,6 @@
       }
   }
 #+END_SRC
+
+* Cow
+1. 标准库 [[https://doc.rust-lang.org/std/borrow/enum.Cow.html][link]]
