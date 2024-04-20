@@ -9,8 +9,31 @@ impl<'a> StrToken<'a> {
     }
 }
 
+#[derive(Debug)]
+struct StringToken {
+    raw: String,
+}
+
+impl StringToken {
+    pub fn new(raw: String) -> StringToken {
+        StringToken { raw: raw }
+    }
+}
+
+struct Token {
+    raw: String,
+}
+
+impl Token {
+    pub fn new<S: Into<String>>(raw: S) -> Token {
+        Token { raw: raw.into() }
+    }
+}
+
 fn main() {
     let secret = "Hello, world!".to_string();
-    let token = StrToken::new(&secret[..]);
-    println!("token = {:?}", token);
+    {
+        let token = StrToken::new(&secret[..]);
+        println!("token = {:?}", token);
+    }
 }

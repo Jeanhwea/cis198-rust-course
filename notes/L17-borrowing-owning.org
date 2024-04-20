@@ -1,0 +1,42 @@
+#+TITLE: CIS198 Lecture 17: 借用和占有
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-04-20 Sat>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil
+
+* 借用
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  struct StrToken<'a> {
+      raw: &'a str,
+  }
+
+  impl<'a> StrToken<'a> {
+      pub fn new(raw: &'a str) -> StrToken<'a> {
+          StrToken { raw: raw }
+      }
+  }
+
+  fn main() {
+      let secret = "Hello, world!".to_string();
+      {
+          let token = StrToken::new(&secret[..]);
+          println!("token = {:?}", token);
+      }
+  }
+#+END_SRC
+
+* 占有
+#+BEGIN_SRC rust :exports both
+  #[derive(Debug)]
+  struct StringToken {
+      raw: String,
+  }
+
+  impl StringToken {
+      pub fn new(raw: String) -> StringToken {
+          StringToken { raw: raw }
+      }
+  }
+#+END_SRC
