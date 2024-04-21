@@ -36,7 +36,7 @@
 | <2024-04-18 Thu> | L15     | Nightly Rust              | [[https://www.bilibili.com/video/BV1Gm411U7qv/][p1]]                | [[file:notes/L15-nightly.org][Nightly]]            |
 | <2024-04-19 Fri> | L16     | Subtyping & Variance      | [[https://www.bilibili.com/video/BV1zm411m7Nm/][p1]]                | [[file:notes/L16-subtyping-variance.org][子类型和型变]]       |
 | <2024-04-20 Sat> | L17     | Borrowing & Owning        | [[https://www.bilibili.com/video/BV1oF4m1A7Hb/][p1]]                | [[file:notes/L17-borrowing-owning.org][借用和占有]]         |
-|                  | L18     | Cross-Compilation         |                   |                    |
+| <2024-04-21 Sun> | L18     | Cross-Compilation         |                   | [[file:notes/L18-cross-compile.org][交叉编译]]           |
 
 * 参考材料
 1. CIS198: Rust Programming | 2016 Spring | [[http://cis198-2016s.github.io/schedule/][Schedule]]

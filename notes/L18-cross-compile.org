@@ -1,0 +1,8 @@
+#+TITLE: CIS198 Lecture 18: 交叉编译
+#+AUTHOR: Jinghui Hu
+#+EMAIL: hujinghui@buaa.edu.cn
+#+DATE: <2024-04-21 Sun>
+#+STARTUP: overview num indent
+#+OPTIONS: ^:nil
+
+* cargo
