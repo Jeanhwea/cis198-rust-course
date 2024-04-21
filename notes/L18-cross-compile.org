@@ -5,4 +5,37 @@
 #+STARTUP: overview num indent
 #+OPTIONS: ^:nil
 
-* cargo
+* 编译工具配置 macOS to windows
+#+BEGIN_SRC sh :results output
+  rustup target list | grep windows
+#+END_SRC
+
+#+RESULTS:
+: aarch64-pc-windows-msvc
+: i586-pc-windows-msvc
+: i686-pc-windows-gnu
+: i686-pc-windows-msvc
+: x86_64-pc-windows-gnu
+: x86_64-pc-windows-msvc
+
+安装 rust 交叉编译工具链
+#+BEGIN_SRC sh
+  rustup target add x86_64-pc-windows-gnu
+#+END_SRC
+
+安装 mingw-w64 编译工具
+#+BEGIN_SRC sh
+  brew install mingw-w64
+#+END_SRC
+
+添加 cargo 的全局配置文件 =~/.cargo/config=
+#+BEGIN_SRC conf
+  [target.x86_64-pc-windows-gnu]
+  linker = "x86_64-w64-mingw32-gcc"
+  ar = "x86_64-w64-mingw32-gcc-ar"
+#+END_SRC
+
+* 交叉编译
+#+BEGIN_SRC sh
+  cargo build --target x86_64-pc-windows-gnu
+#+END_SRC
