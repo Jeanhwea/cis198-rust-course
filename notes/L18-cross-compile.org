@@ -10,27 +10,7 @@
   rustup target list | grep x86_64
 #+END_SRC
 
-#+RESULTS:
-#+begin_example
-x86_64-apple-darwin (installed)
-x86_64-apple-ios
-x86_64-fortanix-unknown-sgx
-x86_64-linux-android
-x86_64-pc-solaris
-x86_64-pc-windows-gnu (installed)
-x86_64-pc-windows-msvc
-x86_64-unknown-freebsd
-x86_64-unknown-fuchsia
-x86_64-unknown-illumos
-x86_64-unknown-linux-gnu (installed)
-x86_64-unknown-linux-gnux32
-x86_64-unknown-linux-musl (installed)
-x86_64-unknown-netbsd
-x86_64-unknown-none
-x86_64-unknown-redox
-x86_64-unknown-uefi
-#+end_example
-
+* macOS to windows
 安装 rust 交叉编译工具链
 #+BEGIN_SRC sh
   rustup target add x86_64-pc-windows-gnu
@@ -48,9 +28,27 @@ x86_64-unknown-uefi
   ar = "x86_64-w64-mingw32-gcc-ar"
 #+END_SRC
 
-* 交叉编译
+交叉编译
 #+BEGIN_SRC sh
   cargo build --target x86_64-pc-windows-gnu
+#+END_SRC
+
+* macOS to linux
+安装 rust 交叉编译工具链
+#+BEGIN_SRC sh
+  rustup target add x86_64-unknown-linux-musl
+#+END_SRC
+
+添加 cargo 的全局配置文件 =~/.cargo/config=
+#+BEGIN_SRC conf
+  [target.x86_64-unknown-linux-musl]
+  linker = "rust-lld"
+  rustflags = ["-C", "linker-flavor=ld.lld"]
+#+END_SRC
+
+交叉编译
+#+BEGIN_SRC sh
+  cargo build --target x86_64-unknown-linux-musl
 #+END_SRC
 
 * 链接
